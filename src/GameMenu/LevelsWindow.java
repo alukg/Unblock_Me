@@ -1,17 +1,21 @@
 package GameMenu;
 
-import DataBase.Serializer;
+import GameComponents.Block;
+import GameComponents.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Vector;
 
 public class LevelsWindow extends PanelModel {
 
     Controller controller;
     JPanel levelsChoose;
-
+    JScrollPane scrollPane;
 
     public LevelsWindow(Controller controller) {
         this.controller = controller;
@@ -20,27 +24,37 @@ public class LevelsWindow extends PanelModel {
         home.addActionListener(controller.new buttonPress());
         menuPanel.add(home);
 
-        levelsChoose = new JPanel(new GridLayout(0,4,4,4));
+        Vector<String> vector = new Vector<>();
+        for(int i=0;i<40;i++){
+            vector.add("guy");
+        }
+        DataBase.Serializer.serialize(vector);
+
+        addLevelChooseScroller();
+    }
+
+    private void addLevelChooseScroller() {
+        if (scrollPane!=null && scrollPane.getParent()!=null)
+            mainPanel.remove(scrollPane);
+
+        levelsChoose = new JPanel(new GridLayout(0, 3, 4, 4));
         levelsChoose.setBackground(new Color(19, 115, 132));
-        JScrollPane scrollPane = new JScrollPane(levelsChoose);
+        scrollPane = new JScrollPane(levelsChoose);
+        scrollPane.setPreferredSize(new Dimension(340,338));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(null);
+        //scrollPane.getVerticalScrollBar().setBackground(new Color(19, 115, 132));
 
         mainPanel.add(scrollPane);
 
-        addLevelsButtons();
-
-        JButton one = new JButton("<html><center>Level 1<br/>"+"13:14"+"</center></html>");
-    }
-
-    private void addLevelsButtons(){
-        List<Level> list = Serializer.deserialize();
-        ListIterator<Level> iterator = list.listIterator();
-        int i = 1;
-        while(iterator.hasNext()){
+        Vector<String> vector = DataBase.Serializer.deserialize();
+        int i = 0;
+        while(i<vector.size()){
             JButton levelButton = new JButton(""+i);
-            levelButton.setText("<html><center>"+i+"<br/>"+iterator.next().bestTime+"</center></html>");
+            levelButton.setText("<html><center>Level "+(i+1)+"<br/>"+vector.elementAt(i)+"</center></html>");
+            levelButton.setActionCommand(""+i);
+            //add action listener
             levelsChoose.add(levelButton);
             i++;
         }
@@ -48,7 +62,12 @@ public class LevelsWindow extends PanelModel {
 
     public class Level
     {
-        //public Board board;
+        public Block blocks;
         public String bestTime;
+
+        public Level(Block blocks, String bestTime){
+            this.bestTime = bestTime;
+            this.blocks = blocks;
+        }
     }
 }

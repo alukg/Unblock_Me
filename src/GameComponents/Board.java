@@ -1,4 +1,4 @@
-package GameMenu;
+package GameComponents;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -80,9 +79,9 @@ public class Board extends JPanel implements MouseListener, KeyListener
 	
 	
 	
-	//-2 осом освшъ
-	//-1 фрей
-	//лм осфш азш осоп ъфес т"й осфш щоййцв аъ осфш дбмеч ботшк
+	//-2 пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	//-1 пїЅпїЅпїЅпїЅ
+	//пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ"пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	private void CreateFrame(int size , Block[] allBlocks)
 	{
 		this.arrBoard = new int[size+2][size+2];
