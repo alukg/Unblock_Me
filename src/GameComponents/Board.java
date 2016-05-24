@@ -18,33 +18,18 @@ public class Board extends JPanel implements MouseListener, KeyListener
 {
 	private Block selected;
 	private Block[] allBlocks;
-	private Game game;
 	private int[][] arrBoard;//free 0 , occupied 1
 	private int size;
 	private final int finishx = 6;
 	private final int finishy = 3;
-	
+	private Stack<Object[]> lastMove;
+
 	
 	
 
-	public Board(Board b)
-	{
-		new Board(b.getAllBlocks(), b.getSelected(), b.getBoardSize(), b.getGame());
-	}
-	public int getFinishx() {
-		return finishx;
-	}
-	public int getFinishy() {
-		return finishy;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-	public Board(Block[] allBlocks, Block selected, int size, Game game)
+	public Board(Block[] allBlocks, Block selected, int size)
 	{
 		//this.requestFocusInWindow();
-		this.game = game;
 		this.size = size;
 		this.selected = selected;
 		this.setLayout(new GridBagLayout());
@@ -62,6 +47,25 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		this.setVisible(true);
 		}
 	
+	public Board(Board b)
+	{
+		new Board(b.getAllBlocks(), b.getSelected(), b.getBoardSize());
+	}
+	public int getFinishx() {
+		return finishx;
+	}
+	public int getFinishy() {
+		return finishy;
+	}
+
+	
+	public Stack<Object[]> getLastMove() 
+	{
+		return lastMove;
+	}
+	public void setLastMove(Stack<Object[]> lastMove) {
+		this.lastMove = lastMove;
+	}
 	
 	
 	
@@ -145,7 +149,6 @@ public class Board extends JPanel implements MouseListener, KeyListener
 					toAdd.addKeyListener(this);
 					this.add(toAdd, gbc);
 				}
-				
 			}
 		}
 	}
@@ -259,7 +262,7 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		}
 		if(this.arrBoard[finishx][finishy] > -1)
 		{
-			this.game.GameFinished();
+			//finish game
 		}
 		if(blockMoved)
 		{
@@ -276,7 +279,7 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				dirNum=4;
 			else if(dir.equals("right"))
 				dirNum = 6;
-			((Stack<Object[]>)(this.game.getLastMove())).push(new Object[x][y][dirNum]);
+			this.lastMove.push(new Object[x][y][dirNum]);
 		}
 		
 	}

@@ -1,9 +1,8 @@
 package GameComponents;
-
+import GameMenu.PanelModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import GameMenu.PanelModel;
 
 import java.util.Stack;
 import javax.swing.*;
@@ -14,13 +13,7 @@ import java.awt.*;
 public class Game extends PanelModel
 {
 	private Board board;
-	public Stack<Object[]> getLastMove() {
-		return lastMove;
-	}
-	public void setLastMove(Stack<Object[]> lastMove) {
-		this.lastMove = lastMove;
-	}
-	private Stack<Object[]> lastMove;
+	
 	private Timer time;
 	private String BestTime;
 	private static int min=0,sec=0;
@@ -29,7 +22,7 @@ public class Game extends PanelModel
 	
 	public Game()
 	{
-		this.lastMove = new Stack<Board>();
+		//this.lastMove = new Stack<Board>();
 		undo = new JButton("Undo");
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
@@ -49,7 +42,7 @@ public class Game extends PanelModel
 
 	public Game(Board b, String BestTime)
 	{
-		this.lastMove = new Stack<Board>();
+		//this.lastMove = new Stack<Board>();
 		this.BestTime= BestTime;
 		//this.time = new Timer(true);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,12 +109,6 @@ public class Game extends PanelModel
 		}
 	}
 
-	public void GameFinished()
-	{
-		this.time.stop();
-		String finishTime = this.labelTimer.getText();
-		
-	}
 
 	
 
