@@ -14,7 +14,13 @@ import java.awt.*;
 public class Game extends PanelModel
 {
 	private Board board;
-	private Stack<Board> lastMove;
+	public Stack<Object[]> getLastMove() {
+		return lastMove;
+	}
+	public void setLastMove(Stack<Object[]> lastMove) {
+		this.lastMove = lastMove;
+	}
+	private Stack<Object[]> lastMove;
 	private Timer time;
 	private String BestTime;
 	private static int min=0,sec=0;
@@ -71,9 +77,11 @@ public class Game extends PanelModel
 	public Board getBoard() {
 		return board;
 	}
-	public void setBoard(Board board) {
+	public void setBoard(Board board) 
+	{
 		this.board = board;
 		mainPanel.add(this.board);
+		//this.board.requestFocusInWindow();
 	}
 
 	public String getBestTime() {

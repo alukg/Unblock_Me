@@ -1,10 +1,13 @@
 package GameComponents;
 
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,11 +21,16 @@ public class Board extends JPanel implements MouseListener, KeyListener
 	private Game game;
 	private int[][] arrBoard;//free 0 , occupied 1
 	private int size;
-	private final int finishx = 3;
+	private final int finishx = 6;
 	private final int finishy = 3;
 	
 	
 	
+
+	public Board(Board b)
+	{
+		new Board(b.getAllBlocks(), b.getSelected(), b.getBoardSize(), b.getGame());
+	}
 	public int getFinishx() {
 		return finishx;
 	}
@@ -30,40 +38,18 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		return finishy;
 	}
 
-	public Board(Board b)
-	{
-		super();
-		this.game = b.getGame();
-		this.size = b.getBoardSize();
-		this.selected = b.getSelected();
-		this.setLayout(new GridBagLayout());
-		this.setSize(100, 100);
-		this.setBackground(Color.yellow);
-		this.allBlocks = new Block[b.getAllBlocks().length];
-		for (int i = 0; i < allBlocks.length; i++) 
-		{
-			this.allBlocks[i] = new Block(b.getAllBlocks()[i]);
-		}
-		CreateFrame(this.size, this.allBlocks);
-		AddBlocks(this.allBlocks);
-		//this.setBorder(BorderFactory.createTitledBorder(
-		//        BorderFactory.createEtchedBorder(), "Board"));
-		this.setVisible(true);
-		this.addKeyListener(this);
-	}
-	
 	public Game getGame() {
 		return game;
 	}
-	public Board(Block[] allBlocks, Block selected, int size, int finishx, int finishy, Game game)
+	public Board(Block[] allBlocks, Block selected, int size, Game game)
 	{
-		super();
+		//this.requestFocusInWindow();
 		this.game = game;
 		this.size = size;
 		this.selected = selected;
 		this.setLayout(new GridBagLayout());
 		this.setSize(300, 300);
-		this.setBackground(Color.GREEN);
+		this.setBackground(Color.YELLOW);
 		this.allBlocks = new Block[allBlocks.length];
 		for (int i = 0; i < allBlocks.length; i++) 
 		{
@@ -71,10 +57,10 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		}
 		CreateFrame(this.size, this.allBlocks);
 		AddBlocks(this.allBlocks);
-		//this.setBorder(BorderFactory.createTitledBorder(
-		//       BorderFactory.createEtchedBorder(), "Board"));
+		this.setBorder(BorderFactory.createTitledBorder(
+		       BorderFactory.createEtchedBorder(), "Board"));
 		this.setVisible(true);
-	}
+		}
 	
 	
 	
@@ -95,14 +81,11 @@ public class Board extends JPanel implements MouseListener, KeyListener
 					this.arrBoard[i][j] = -1;
 			}
 		}
-		PrintArray(this.arrBoard);
-		System.out.println("After");
 		for(int i = 0; i < this.allBlocks.length; i++)
 		{
 			Block tmp = this.allBlocks[i];
 			int x = tmp.getMy_x();
 			int y = tmp.getMy_y();
-			//this.arrBoard[x][y] = i;
 			for(int j = 0; j < tmp.getMy_length(); j++)
 			{
 				if(tmp.getMy_dir().equals("Horizontal"))
@@ -115,8 +98,6 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				}
 			}
 		}
-		PrintArray(this.arrBoard);
-		
 	}
 	private void PrintArray(int[][] arr)
 	{
@@ -140,18 +121,24 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				{
 					gbc = new GridBagConstraints();
 					JLabel free = new JLabel();
-					free.setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+					if( i == this.finishx && j == this.finishy)
+					{
+						free.setText("--->");
+					}
+					else
+						free.setIcon(new ImageIcon("Images/FreeSpace.jpg"));
 					gbc.gridx = i;
 					gbc.gridy = j;
 					this.add(free, gbc);
 				}
-				
-				//
 				else
 				{
 					gbc = new GridBagConstraints();
 					JLabel toAdd = new Block(this.allBlocks[this.arrBoard[i][j]]);
-					toAdd.setIcon(new ImageIcon("Images/Block.png"));
+					if(((Block)(toAdd)).getMy_target())
+						toAdd.setIcon(new ImageIcon("Images/BlockTarget.png"));
+					else
+						toAdd.setIcon(new ImageIcon("Images/Block.png"));
 					gbc.gridx = i;
 					gbc.gridy = j;
 					toAdd.addMouseListener(this);
@@ -161,55 +148,7 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				
 			}
 		}
-			/*for (int i = 0; i < this.allBlocks.length; i++)
-			{
-					Block tmp = allBlocks[i];
-					System.out.println("i:"+i+" x:"+ allBlocks[i].getMy_x()+" y:"+ allBlocks[i].getMy_y() );
-					gbc = new GridBagConstraints();
-					JLabel toAdd = new Block(tmp);
-					toAdd.setIcon(new ImageIcon("Images/Block.png"));*/
-
-					//if(tmp.getDir().equals("Horizontal"))
-					//{
-					//	gbc.fill = GridBagConstraints.HORIZONTAL;
-					//	gbc.gridwidth = tmp.getLength();
-
-					//}
-					//else
-					//{
-					//	gbc.fill = GridBagConstraints.VERTICAL;
-					//	gbc.gridheight = tmp.getLength();
-					//	
-					//}
-					//if(tmp.getTarget())
-					//{
-					//	toAdd.setIcon(new ImageIcon("Images//BlockTarget.png"));
-						//toAdd.setBackground(Color.RED);
-					//}
-					//else
-					//{
-					//	toAdd.setIcon(new ImageIcon("Images//Block.png"));
-						//toAdd.setBackground(Color.gray);
-					//}
-					//if(tmp.equals(this.selected))
-					//{
-					//	toAdd.setIcon(new ImageIcon("Images//BlockSelected.png"));
-					    //toAdd.setBackground(Color.black);
-					//}
-					//toAdd.setBorder(BorderFactory.createLineBorder(Color.black));
-					//toAdd.addMouseListener(this);
-					//toAdd.addKeyListener(this);
-					//System.out.println("i:"+i+" x:"+ tmp.getMy_x()+" y:"+tmp.getMy_y() );
-
-					//gbc.gridx = tmp.getMy_x();				
-					//gbc.gridy = tmp.getMy_y();
-
-					//System.out.println("i:"+i+" x:"+ gbc.gridx+" y:"+gbc.gridy );
-					
-					//this.add(toAdd, gbc);
-				//}	
-		}
-		
+	}
 	public void ChangeColor()
 	{
 		if(this.selected.getMy_target())
@@ -220,7 +159,6 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		{
 			this.selected.setBackground(Color.gray);
 		}
-		
 	}
 		public int getBoardSize() {
 			return size;
@@ -259,6 +197,7 @@ public class Board extends JPanel implements MouseListener, KeyListener
 
 	public void MoveBlock(String dir)
 	{
+		boolean blockMoved = false;
 		int x= this.selected.getMy_x();
 		int y = this.selected.getMy_y();
 		int blockNum = this.arrBoard[x][y];
@@ -276,6 +215,7 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				this.selected.moveRight();
 				arrBoard[x + length][y] = blockNum;
 				arrBoard[x][y] = -1;
+				blockMoved = true;
 				
 			}
 		case "left" :
@@ -288,6 +228,8 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				this.selected.moveLeft();
 				arrBoard[x-1][y] = blockNum;
 				arrBoard[x+ length-1][y] = -1;
+				blockMoved = true;
+
 			}
 		case "up" :
 			if(dirHorOrVer.equals("Horizontal")) 
@@ -299,6 +241,8 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				this.selected.moveUp();
 				arrBoard[x][y +1 ] = blockNum;
 				arrBoard[x][y - length  + 1] = -1; 
+				blockMoved = true;
+
 			}
 		case "down" :
 			if(dirHorOrVer.equals("Horizontal")) 
@@ -310,29 +254,43 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				this.selected.moveDown();
 				arrBoard[x][y - length] = blockNum;
 				arrBoard[x][y] = -1;
+				blockMoved = true;
 			}
 		}
 		if(this.arrBoard[finishx][finishy] > -1)
 		{
 			this.game.GameFinished();
 		}
+		if(blockMoved)
+		{
+			GridBagConstraints gbc= new GridBagConstraints();
+			gbc.gridx = x;
+			gbc.gridy = y;
+			this.remove(this.selected);
+			int dirNum =-1;
+			if(dir.equals("up"))
+				dirNum=8;
+			else if(dir.equals("down"))
+				dirNum=2;
+			else if(dir.equals("ledt"))
+				dirNum=4;
+			else if(dir.equals("right"))
+				dirNum = 6;
+			((Stack<Object[]>)(this.game.getLastMove())).push(new Object[x][y][dirNum]);
+		}
+		
 	}
-	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(e.getSource() instanceof Block)
 		{
-			((Block)e.getSource()).setMy_Selected(true);
-			this.selected = (Block)e.getSource();
+			this.selected  = (Block)e.getSource();
 			System.out.println("Mouse clicked on block x:"+ this.selected.getMy_x()+"  y:"+this.selected.getMy_y());
 		}
-		//this.setFocusable(true);
-	}
-	@Override
+		}
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+		System.out.println("enter");
+		}
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -347,10 +305,10 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+	
 	public void keyPressed(KeyEvent e) 
 	{
-		System.out.println("Moving selected block from x:"+ this.selected.getMy_x()+"  y:"+this.selected.getMy_y());
+		System.out.println("Key Pressed");
 
 		 int keyCode = e.getKeyCode();
 		 String dirToMove = "";
@@ -383,16 +341,15 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		    	}
 		    }
 	}
-	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("Key released");
 		
 	}
-	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("Key typed");
 		
 	}
+
 	
 	
 	

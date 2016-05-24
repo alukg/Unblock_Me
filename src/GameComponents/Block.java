@@ -1,9 +1,14 @@
 package GameComponents;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.peer.KeyboardFocusManagerPeer;
+
 import javax.swing.JLabel;
 
 
-public class Block extends JLabel 
+public class Block extends JLabel
 {
 	private int my_x;
 	private int my_y;
@@ -28,8 +33,8 @@ public class Block extends JLabel
 	public Block(Block b)
 	{
 		 super();
-		 this.my_x = b.getX();
-		 this.my_y = b.getY();
+		 this.my_x = b.getMy_x();
+		 this.my_y = b.getMy_y();
 		 this.my_length = b.getMy_length();
 		 this.my_dir = b.getMy_dir();
 		 this.my_target = b.getMy_target();
@@ -91,6 +96,7 @@ public class Block extends JLabel
 	{
 		this.my_y = this.my_y - 1;
 	}
+	
 	
 	
 
