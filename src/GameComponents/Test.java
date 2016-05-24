@@ -1,6 +1,8 @@
-package GameMenu;
+package GameComponents;
 
-import java.awt.*;
+import GameComponents.Block;
+import GameComponents.Board;
+import GameComponents.Game;
 
 
 import javax.swing.*;
