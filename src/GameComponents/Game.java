@@ -3,7 +3,7 @@ package GameComponents;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import GameComponents.Board;
+import GameMenu.PanelModel;
 
 import java.util.Stack;
 import javax.swing.*;
@@ -11,7 +11,7 @@ import javax.swing.Timer;
 
 import java.awt.*;
 
-public class Game extends JPanel
+public class Game extends PanelModel
 {
 	private Board board;
 	private Stack<Board> lastMove;
@@ -19,73 +19,53 @@ public class Game extends JPanel
 	private String BestTime;
 	private static int min=0,sec=0;
 	private JLabel labelTimer;
+	private JButton undo;
 	
 	public Game()
 	{
-		super();
-		this.setLayout(new GridBagLayout());
 		this.lastMove = new Stack<Board>();
-		JButton buttonUndo = new JButton("Undo");
-		//buttonUndo.add(new)
-		labelTimer = new JLabel("00:00");
+		undo = new JButton("Undo");
+		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
+		labelTimer.setForeground(Color.WHITE);
+		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, new starChrono());
 		this.time.start();
-		//Add more Buttons		
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		this.add(labelTimer, gbc);
-		
-		gbc.gridx = 2;
-		gbc.gridy = 0;
-		this.add(buttonUndo, gbc);
+
+		menuPanel.add(labelTimer);
+		menuPanel.add(undo);
 		
 		//this.board.setFocusable(true);
 		//gbc.gridx = 1;
 		//gbc.gridy = 1;
 		//this.add(this.board, gbc);
 		//this.lastMove.push(new Board(this.board));
-
-		this.setVisible(true);	
 	}
+
 	public Game(Board b, String BestTime)
 	{
-		//super("Unblock Me");
-		super();
 		this.lastMove = new Stack<Board>();
 		this.BestTime= BestTime;
 		//this.time = new Timer(true);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new GridBagLayout());
 		this.board = new Board(b);
 		//b.getSelected().setIcon(new ImageIcon("Images/BlockSelected"));
-		JButton buttonUndo = new JButton("Undo");
+		undo = new JButton("Undo");
 		//buttonUndo.add(new)
-		JLabel labelbestTime = new JLabel("Best time is : "+this.BestTime);
-		labelTimer = new JLabel("00:00");
+		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime);
+		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
+		labelTimer.setForeground(Color.WHITE);
+		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, new starChrono());
 		this.time.start();
-		//Add more Buttons		
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		this.add(labelTimer, gbc);
-		
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		this.add(labelbestTime, gbc);
-		
-		gbc.gridx = 2;
-		gbc.gridy = 0;
-		this.add(buttonUndo, gbc);
+		//Add more Buttons
+
+		menuPanel.add(labelTimer);
+		menuPanel.add(labelBestTime);
+		menuPanel.add(undo);
 		
 		//this.board.setFocusable(true);
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		this.add(this.board, gbc);
+		mainPanel.add(this.board);
 		//this.lastMove.push(new Board(this.board));
-
-		this.setVisible(true);		
 	}
 	
 	public Board getBoard() {
@@ -93,22 +73,18 @@ public class Game extends JPanel
 	}
 	public void setBoard(Board board) {
 		this.board = board;
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		//this.board.req
-		this.add(this.board, gbc);
+		mainPanel.add(this.board);
 	}
+
 	public String getBestTime() {
 		return BestTime;
 	}
+
 	public void setBestTime(String bestTime) {
 		BestTime = bestTime;
 		JLabel labelbestTime = new JLabel("Best time is : "+this.BestTime);
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		this.add(labelbestTime, gbc);	}
+		menuPanel.add(labelbestTime);
+	}
 
 	private class starChrono implements ActionListener
 	{
@@ -131,6 +107,7 @@ public class Game extends JPanel
 			}
 		}
 	}
+
 	public void GameFinished()
 	{
 		this.time.stop();

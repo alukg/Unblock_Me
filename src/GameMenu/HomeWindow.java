@@ -10,12 +10,12 @@ public class HomeWindow extends PanelModel {
         this.controller = controller;
         JButton selectLevel = new JButton("Select level");
         selectLevel.setActionCommand("Select level");
-        selectLevel.addActionListener(controller.new buttonPress());
+        selectLevel.addActionListener(controller.new menuPress());
         JButton editor = new JButton("Editor");
         editor.setActionCommand("Editor");
-        editor.addActionListener(controller.new buttonPress());
+        editor.addActionListener(controller.new menuPress());
         JButton exit = new JButton("Exit");
-        exit.addActionListener(e -> System.exit(0));
+        exit.addActionListener(e -> {controller.saveDB(); System.exit(0);});
         menuPanel.add(selectLevel);
         menuPanel.add(editor);
         menuPanel.add(exit);
