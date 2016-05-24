@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 
 public class Block extends JLabel 
 {
-	private int x;
-	private int y;
-	private int length;
-	private String dir;
-	private Boolean target;//Saves whether the block is a target block or not.
-	private Boolean Selected;
+	private int my_x;
+	private int my_y;
+	private int my_length;
+	private String my_dir;
+	private Boolean my_target;//Saves whether the block is a target block or not.
+	private Boolean my_Selected;
 	
 	
 	
@@ -25,69 +25,78 @@ public class Block extends JLabel
 	public Block(int x, int y, int length, String dir, Boolean target)
 	{
 		super();
-		this.target = target;
-		this.dir = dir;
-		this.x = x;
-		this.y = y;
-		this.length = length;
-		this.Selected = false;
+		this.my_target = target;
+		this.my_dir = dir;
+		this.my_x = x;
+		this.my_y = y;
+		this.my_length = length;
+		this.my_Selected = false;
 	}
 	public Block(Block b)
 	{
 		 super();
-		 this.x = b.getX();
-		 this.y = b.getY();
-		 this.length = b.getLength();
-		 this.dir = b.getDir();
-		 this.target = b.getTarget();
-		 this.Selected = false;
+		 this.my_x = b.getX();
+		 this.my_y = b.getY();
+		 this.my_length = b.getMy_length();
+		 this.my_dir = b.getMy_dir();
+		 this.my_target = b.getMy_target();
+		 this.my_Selected = false;
 	}
 	
 	
-	//Getters and Setters
-	public Boolean getSelected() {
-		return Selected;
-	}
-	public void setSelected(Boolean selected) {
-		Selected = selected;
-	}
-	public int getX() {
-		return x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setX(int x) {
-		this.x = x;
-	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	public int getLength() {
-		return length;
-	}
-	public String getDir() {
-		return dir;
-	}
-	public Boolean getTarget() {
-		return target;
-	}
 	
+	
+	public int getMy_x() {
+		return my_x;
+	}
+	public void setMy_x(int my_x) {
+		this.my_x = my_x;
+	}
+	public int getMy_y() {
+		return my_y;
+	}
+	public void setMy_y(int my_y) {
+		this.my_y = my_y;
+	}
+	public int getMy_length() {
+		return my_length;
+	}
+	public void setMy_length(int my_length) {
+		this.my_length = my_length;
+	}
+	public String getMy_dir() {
+		return my_dir;
+	}
+	public void setMy_dir(String my_dir) {
+		this.my_dir = my_dir;
+	}
+	public Boolean getMy_target() {
+		return my_target;
+	}
+	public void setMy_target(Boolean my_target) {
+		this.my_target = my_target;
+	}
+	public Boolean getMy_Selected() {
+		return my_Selected;
+	}
+	public void setMy_Selected(Boolean my_Selected) {
+		this.my_Selected = my_Selected;
+	}
 	public void moveRight()
 	{
-		this.x = this.x + 1;
+		this.my_x = this.my_x + 1;
 	}
 	public void moveLeft()
 	{
-		this.x = this.x - 1;
+		this.my_x = this.my_x - 1;
 	}
 	public void moveUp()
 	{
-		this.y = this.y + 1;
+		this.my_y = this.my_y + 1;
 	}
 	public void moveDown()
 	{
-		this.y = this.y - 1;
+		this.my_y = this.my_y - 1;
 	}
 	
 	
