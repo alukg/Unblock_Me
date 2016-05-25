@@ -1,8 +1,7 @@
 package GameComponents;
 
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -14,14 +13,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Board extends JPanel implements MouseListener, KeyListener
+public class Board extends JPanel implements MouseListener , KeyListener
 {
 	private Block selected;
 	private Block[] allBlocks;
-	private int[][] arrBoard;//free 0 , occupied 1
+	private int[][] arrBoard;
+	private JLabel[][] labels;
 	private int size;
-	private final int finishx = 6;
-	private final int finishy = 3;
+	private final int finishi = 3;
+	private final int finishj = 6;
 	private Stack<Object[]> lastMove;
 
 	
@@ -29,7 +29,6 @@ public class Board extends JPanel implements MouseListener, KeyListener
 
 	public Board(Block[] allBlocks, Block selected, int size)
 	{
-		//this.requestFocusInWindow();
 		this.size = size;
 		this.selected = selected;
 		this.setLayout(new GridBagLayout());
@@ -44,18 +43,18 @@ public class Board extends JPanel implements MouseListener, KeyListener
 		AddBlocks(this.allBlocks);
 		this.setBorder(BorderFactory.createTitledBorder(
 		       BorderFactory.createEtchedBorder(), "Board"));
-		this.setVisible(true);
 		}
 	
 	public Board(Board b)
 	{
 		new Board(b.getAllBlocks(), b.getSelected(), b.getBoardSize());
 	}
-	public int getFinishx() {
-		return finishx;
+	public int getFinishj() 
+	{
+		return finishj;
 	}
-	public int getFinishy() {
-		return finishy;
+	public int getfinishi() {
+		return finishi;
 	}
 
 	
@@ -63,7 +62,8 @@ public class Board extends JPanel implements MouseListener, KeyListener
 	{
 		return lastMove;
 	}
-	public void setLastMove(Stack<Object[]> lastMove) {
+	public void setLastMove(Stack<Object[]> lastMove) 
+	{
 		this.lastMove = lastMove;
 	}
 	
@@ -94,11 +94,11 @@ public class Board extends JPanel implements MouseListener, KeyListener
 			{
 				if(tmp.getMy_dir().equals("Horizontal"))
 				{
-					this.arrBoard[x + j][y] = i;
+					this.arrBoard[y][x + j] = i;
 				}
 				else
 				{
-					this.arrBoard[x][y + j] = i;
+					this.arrBoard[y + j][x] = i;
 				}
 			}
 		}
@@ -116,6 +116,14 @@ public class Board extends JPanel implements MouseListener, KeyListener
 	}
 	private void AddBlocks(Block[] allBlocks)
 	{
+		this.labels = new JLabel[this.size][this.size];
+		for(int i= 0; i < this.size; i++)
+		{
+			for (int j = 0; j < this.size; j++) 
+			{
+				labels[i][j] = new JLabel();
+			}
+		}
 		GridBagConstraints gbc;
 		for (int i = 1; i < this.size+1; i++) 
 		{
@@ -124,18 +132,17 @@ public class Board extends JPanel implements MouseListener, KeyListener
 				if(this.arrBoard[i][j] == -1)
 				{
 					gbc = new GridBagConstraints();
-					JLabel free = new JLabel();
-					if( i == this.finishx && j == this.finishy)
+					if( j == this.finishj && i == this.finishi)
 					{
-						free.setText("--->");
+						labels[i-1][j-1].setText("--->");
 					}
 					else
-						free.setIcon(new ImageIcon("Images/FreeSpace.jpg"));
-					gbc.gridx = i;
-					gbc.gridy = j;
-					this.add(free, gbc);
+						labels[i-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+					gbc.gridx = j;
+					gbc.gridy = i;
+					this.add(labels[i-1][j-1], gbc);
 				}
-				else
+				/*else
 				{
 					gbc = new GridBagConstraints();
 					JLabel toAdd = new Block(this.allBlocks[this.arrBoard[i][j]]);
@@ -145,11 +152,36 @@ public class Board extends JPanel implements MouseListener, KeyListener
 						toAdd.setIcon(new ImageIcon("Images/Block.png"));
 					gbc.gridx = i;
 					gbc.gridy = j;
+					//gbc.gridwidth = ((Block)(toAdd)).getMy_length();
 					toAdd.addMouseListener(this);
 					toAdd.addKeyListener(this);
 					this.add(toAdd, gbc);
-				}
+				}*/
 			}
+		}
+		for (int i = 0; i < this.allBlocks.length; i++) 
+		{
+			gbc = new GridBagConstraints();
+			JLabel toAdd = new Block(this.allBlocks[i]);
+			if(((Block)(toAdd)).getMy_target())
+				toAdd.setIcon(new ImageIcon("Images/BlockTarget.png"));
+			else
+				toAdd.setIcon(new ImageIcon("Images/Block.png"));
+			gbc.gridx = ((Block)(toAdd)).getMy_x();
+			gbc.gridy = ((Block)(toAdd)).getMy_y();
+			if(((Block)(toAdd)).getMy_dir().equals("Horizontal"))
+			{
+				gbc.gridwidth = ((Block)(toAdd)).getMy_length();
+				gbc.fill = GridBagConstraints.HORIZONTAL;
+			}
+			else
+			{
+				gbc.gridheight = ((Block)(toAdd)).getMy_length();
+				gbc.fill = GridBagConstraints.HORIZONTAL;
+			}
+			toAdd.addMouseListener(this);
+			toAdd.addKeyListener(this);
+			this.add(toAdd, gbc);
 		}
 	}
 	public void ChangeColor()
@@ -200,156 +232,194 @@ public class Board extends JPanel implements MouseListener, KeyListener
 
 	public void MoveBlock(String dir)
 	{
-		boolean blockMoved = false;
-		int x= this.selected.getMy_x();
-		int y = this.selected.getMy_y();
-		int blockNum = this.arrBoard[x][y];
+		int i = this.selected.getMy_y();
+		int j = this.selected.getMy_x();
+		int blockNum = this.arrBoard[i][j];
 		int length = this.selected.getMy_length();
 		String dirHorOrVer = this.selected.getMy_dir();
-		switch(dir)
+		if(dir.equals("right") && dirHorOrVer.equals("Horizontal") && this.arrBoard[i][j+length] == -1)
 		{
-		case "right" :
-			if(dirHorOrVer.equals("Vertical")) 
-			{
-				//the block is not horizontal
-			}
-			if(arrBoard[x + length][y] == -1 )//free place to go
-			{
+				this.arrBoard[i][j] = -1;
+				this.arrBoard[i][j+length] = blockNum;
+				this.remove(selected);
 				this.selected.moveRight();
-				arrBoard[x + length][y] = blockNum;
-				arrBoard[x][y] = -1;
-				blockMoved = true;
-				
-			}
-		case "left" :
-			if(dirHorOrVer.equals("Vertical")) 
-			{
-				//the block is not horizontal
-			}
-			if(arrBoard[x-1][y] == -1 )//free place to go
-			{
-				this.selected.moveLeft();
-				arrBoard[x-1][y] = blockNum;
-				arrBoard[x+ length-1][y] = -1;
-				blockMoved = true;
-
-			}
-		case "up" :
-			if(dirHorOrVer.equals("Horizontal")) 
-			{
-				//the block is not vertical
-			}
-			if(arrBoard[x][y + 1 ] == -1 )//free place to go
-			{
-				this.selected.moveUp();
-				arrBoard[x][y +1 ] = blockNum;
-				arrBoard[x][y - length  + 1] = -1; 
-				blockMoved = true;
-
-			}
-		case "down" :
-			if(dirHorOrVer.equals("Horizontal")) 
-			{
-				//the block is not vertical
-			}
-			if(arrBoard[x][y - length] == -1 )//free place to go
-			{
-				this.selected.moveDown();
-				arrBoard[x][y - length] = blockNum;
-				arrBoard[x][y] = -1;
-				blockMoved = true;
-			}
+				this.remove(this.labels[i-1][j+length-1]);
+				GridBagConstraints gbc = new GridBagConstraints();
+				gbc.gridx = j;
+				gbc.gridy = i;
+				this.labels[i-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+				this.add(this.labels[i-1][j-1],gbc);
+				gbc.gridx = j+1;
+				gbc.gridy = i;
+				gbc.gridwidth = length;
+				this.add(this.selected, gbc);
 		}
-		if(this.arrBoard[finishx][finishy] > -1)
+		if(dir.equals("left") &&  dirHorOrVer.equals("Horizontal") && this.arrBoard[i][j-1] == -1)
 		{
-			//finish game
+		this.arrBoard[i][j+length-1] = -1;
+		this.arrBoard[i][j-1] = blockNum;
+		this.remove(selected);
+		this.selected.moveLeft();
+		this.remove(this.labels[i-1][j-1-1]);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = j+length-1;
+		gbc.gridy = i;
+		this.labels[i-1][j+length-1-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+		this.add(this.labels[i-1][j+length-1-1],gbc);
+		gbc.gridx = j-1;
+		gbc.gridy = i;
+		gbc.gridwidth = length;
+		this.add(this.selected, gbc);
 		}
+		if(dir.equals("up") && dirHorOrVer.equals("Vertical") && this.arrBoard[i-1][j] == -1)
+		{
+		this.arrBoard[i+length-1][j] = -1;
+		this.arrBoard[i-1][j] = blockNum;
+		this.remove(selected);
+		this.selected.moveUp();
+		this.remove(this.labels[i-1-1][j-1]);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = j;
+		gbc.gridy = i+length -1;
+		this.labels[i+length-1-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+		this.add(this.labels[i+length-1-1][j-1],gbc);
+		gbc.gridx = j;
+		gbc.gridy = i-1;
+		gbc.gridheight = length;
+		gbc.fill = GridBagConstraints.VERTICAL;
+		this.add(this.selected, gbc);
+
+		}
+		if(dir.equals("down"))
+			if(dirHorOrVer.equals("Vertical"))
+				if(this.arrBoard[i+length][j] == -1)
+		{
+		this.arrBoard[i][j] = -1;
+		this.arrBoard[i+length][j] = blockNum;
+		this.remove(selected);
+		this.selected.moveDown();
+		this.remove(this.labels[i+length-1][j-1]);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = j;
+		gbc.gridy = i;
+		this.labels[i-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+		this.add(this.labels[i-1][j-1],gbc);
+		gbc.gridx = j;
+		gbc.gridy = i+1;
+		gbc.gridheight = length;
+		gbc.fill = GridBagConstraints.VERTICAL;
+		this.add(this.selected, gbc);
+		}
+		if(this.arrBoard[finishi][finishj] > -1 && this.allBlocks[this.arrBoard[finishi][finishj]].getMy_target())
+		{
+			System.out.println("Finish game");
+		}
+		repaint();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		if(blockMoved)
 		{
-			GridBagConstraints gbc= new GridBagConstraints();
-			gbc.gridx = x;
-			gbc.gridy = y;
-			this.remove(this.selected);
-			int dirNum =-1;
+			
+		/*int dirNum =-1;
 			if(dir.equals("up"))
 				dirNum=8;
 			else if(dir.equals("down"))
 				dirNum=2;
-			else if(dir.equals("ledt"))
+			else if(dir.equals("left"))
 				dirNum=4;
 			else if(dir.equals("right"))
 				dirNum = 6;
 			this.lastMove.push(new Object[x][y][dirNum]);
-		}
+			
+		}*/
 		
-	}
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(e.getSource() instanceof Block)
 		{
 			this.selected  = (Block)e.getSource();
-			System.out.println("Mouse clicked on block x:"+ this.selected.getMy_x()+"  y:"+this.selected.getMy_y());
+			e.getComponent().setFocusable(true);
+			e.getComponent().requestFocus();
 		}
+		
 		}
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("enter");
 		}
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+
+
 		
 	}
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
+
+
 	}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent e)
+	{
+
 	}
 	
 	public void keyPressed(KeyEvent e) 
 	{
-		System.out.println("Key Pressed");
-
 		 int keyCode = e.getKeyCode();
 		 String dirToMove = "";
 		    switch( keyCode ) 
 		    { 
 		        case KeyEvent.VK_UP:
 		        	dirToMove = "up";
+				    MoveBlock(dirToMove);   
+
 		            break;
 		        case KeyEvent.VK_DOWN:
 		        	dirToMove="down";
+				    MoveBlock(dirToMove);   
+
 		        	break;
 		        case KeyEvent.VK_LEFT:
 		        	dirToMove="left";
+				    MoveBlock(dirToMove);   
+
 		            break;
 		        case KeyEvent.VK_RIGHT :
 		        	dirToMove="right";
+				    MoveBlock(dirToMove);   
+
 		            break;
 		    }
-		    MoveBlock(dirToMove);
-		    repaint();
-		    
-		    
-		    //Check if the game is finished
-		    if(this.selected.getMy_target())
-		    {
-		    	//Target Block is always horizontal and finishy and y are the same.
-		    	if(this.selected.getMy_x() + this.selected.getMy_length() >= this.finishx)
-		    	{
-		    		//game finished
-		    	}
-		    }
+			e.getComponent().setFocusable(true);
+			e.getComponent().requestFocus();
 	}
 	public void keyReleased(KeyEvent e) {
-		System.out.println("Key released");
 		
 	}
 	public void keyTyped(KeyEvent e) {
-		System.out.println("Key typed");
 		
 	}
 

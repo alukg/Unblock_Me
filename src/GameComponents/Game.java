@@ -10,7 +10,7 @@ import javax.swing.Timer;
 
 import java.awt.*;
 
-public class Game extends PanelModel
+public class Game extends PanelModel 
 {
 	private Board board;
 	
@@ -32,12 +32,14 @@ public class Game extends PanelModel
 
 		menuPanel.add(labelTimer);
 		menuPanel.add(undo);
-		
 		//this.board.setFocusable(true);
 		//gbc.gridx = 1;
 		//gbc.gridy = 1;
 		//this.add(this.board, gbc);
 		//this.lastMove.push(new Board(this.board));
+
+		this.undo.setFocusable(false);
+		this.labelTimer.setFocusable(false);
 	}
 
 	public Game(Board b, String BestTime)
@@ -65,6 +67,8 @@ public class Game extends PanelModel
 		//this.board.setFocusable(true);
 		mainPanel.add(this.board);
 		//this.lastMove.push(new Board(this.board));
+		//this.board.requestFocusInWindow();
+
 	}
 	
 	public Board getBoard() {
@@ -106,6 +110,7 @@ public class Game extends PanelModel
 				String min2 = (min<10?"0":"")+min;
 				labelTimer.setText(min2+":00");
 			}
+			
 		}
 	}
 

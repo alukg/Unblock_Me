@@ -1,6 +1,10 @@
 package GameComponents;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 
 public class Test {
@@ -19,10 +23,9 @@ public class Test {
 		g.setBestTime("11:23");
 		g.setBoard(b);
 		JFrame frame = new JFrame("Unblock Me");
-		frame.getContentPane().add(b);
+		frame.getContentPane().add(g);
 		frame.setVisible(true);
 		frame.setSize(400, 400);
-		//frame.setFocusable(true);
 		frame.pack();
 	}
 
