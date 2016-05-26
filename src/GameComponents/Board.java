@@ -29,6 +29,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 
 	public Board(Block[] allBlocks, Block selected, int size)
 	{
+		this.lastMove = new Stack<Object[]>();
 		this.size = size;
 		this.selected = selected;
 		this.setLayout(new GridBagLayout());
@@ -142,21 +143,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 					gbc.gridy = i;
 					this.add(labels[i-1][j-1], gbc);
 				}
-				/*else
-				{
-					gbc = new GridBagConstraints();
-					JLabel toAdd = new Block(this.allBlocks[this.arrBoard[i][j]]);
-					if(((Block)(toAdd)).getMy_target())
-						toAdd.setIcon(new ImageIcon("Images/BlockTarget.png"));
-					else
-						toAdd.setIcon(new ImageIcon("Images/Block.png"));
-					gbc.gridx = i;
-					gbc.gridy = j;
-					//gbc.gridwidth = ((Block)(toAdd)).getMy_length();
-					toAdd.addMouseListener(this);
-					toAdd.addKeyListener(this);
-					this.add(toAdd, gbc);
-				}*/
+				
 			}
 		}
 		for (int i = 0; i < this.allBlocks.length; i++) 
@@ -230,8 +217,31 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		}
 		
 
-	public void MoveBlock(String dir)
+		public void undoFunction()
+		{
+			if(!(this.lastMove.isEmpty()))
+			{
+			Object[] tmp = this.lastMove.pop();
+			setSelected((Block)tmp[0]);
+			String dirToGo = (String)tmp[1];
+			if(dirToGo.equals("up"))
+				dirToGo = "down";
+			else if(dirToGo.equals("down"))
+				dirToGo = "up";
+			else if(dirToGo.equals("left"))
+				dirToGo = "right";
+			else if(dirToGo.equals("right"))
+				dirToGo = "left";
+			MoveBlock(dirToGo);
+			}
+			else
+			{
+				System.out.println("There are no last moves");
+			}
+		}
+	public boolean MoveBlock(String dir)
 	{
+		boolean moveDone = false;
 		int i = this.selected.getMy_y();
 		int j = this.selected.getMy_x();
 		int blockNum = this.arrBoard[i][j];
@@ -253,6 +263,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				gbc.gridy = i;
 				gbc.gridwidth = length;
 				this.add(this.selected, gbc);
+				moveDone = true;
 		}
 		if(dir.equals("left") &&  dirHorOrVer.equals("Horizontal") && this.arrBoard[i][j-1] == -1)
 		{
@@ -270,6 +281,8 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		gbc.gridy = i;
 		gbc.gridwidth = length;
 		this.add(this.selected, gbc);
+		moveDone = true;
+
 		}
 		if(dir.equals("up") && dirHorOrVer.equals("Vertical") && this.arrBoard[i-1][j] == -1)
 		{
@@ -288,11 +301,11 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		gbc.gridheight = length;
 		gbc.fill = GridBagConstraints.VERTICAL;
 		this.add(this.selected, gbc);
+		moveDone = true;
+
 
 		}
-		if(dir.equals("down"))
-			if(dirHorOrVer.equals("Vertical"))
-				if(this.arrBoard[i+length][j] == -1)
+		if(dir.equals("down") && dirHorOrVer.equals("Vertical") && this.arrBoard[i+length][j] == -1)
 		{
 		this.arrBoard[i][j] = -1;
 		this.arrBoard[i+length][j] = blockNum;
@@ -309,12 +322,15 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		gbc.gridheight = length;
 		gbc.fill = GridBagConstraints.VERTICAL;
 		this.add(this.selected, gbc);
+		moveDone = true;
+
 		}
 		if(this.arrBoard[finishi][finishj] > -1 && this.allBlocks[this.arrBoard[finishi][finishj]].getMy_target())
 		{
 			System.out.println("Finish game");
 		}
 		repaint();
+		return moveDone;
 		}
 		
 		
@@ -394,25 +410,25 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		    { 
 		        case KeyEvent.VK_UP:
 		        	dirToMove = "up";
-				    MoveBlock(dirToMove);   
 
 		            break;
 		        case KeyEvent.VK_DOWN:
 		        	dirToMove="down";
-				    MoveBlock(dirToMove);   
-
 		        	break;
 		        case KeyEvent.VK_LEFT:
 		        	dirToMove="left";
-				    MoveBlock(dirToMove);   
-
-		            break;
+				    break;
 		        case KeyEvent.VK_RIGHT :
 		        	dirToMove="right";
-				    MoveBlock(dirToMove);   
-
-		            break;
+				    break;
 		    }
+		    if(MoveBlock(dirToMove))
+				{
+				Object[] toPush = new Object[2];
+				toPush[0] = this.selected;
+				toPush[1] = dirToMove;
+				this.lastMove.push(toPush);
+				}
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocus();
 	}
