@@ -1,5 +1,6 @@
 package GameMenu;
 
+import GameComponents.Block;
 import GameComponents.Game;
 import GameComponents.Level;
 
@@ -61,13 +62,10 @@ public class Controller extends JFrame {
         DataBase.Serializer.serialize(levelsDB);
     }
 
-    public class gameFinished implements ChangeListener{
-        @Override
-        public void stateChanged(ChangeEvent e) {
-            levelsWindow.addLevelChoosePanel();
-            cards.show(getContentPane(),"Select level");
-            gameWindow = null;
-        }
+    public void gameFinished(String time){
+        levelsWindow.addLevelChoosePanel();
+        cards.show(getContentPane(),"Select level");
+        gameWindow = null;
     }
 
     public class menuPress implements ActionListener {
@@ -108,7 +106,18 @@ public class Controller extends JFrame {
             if(gameWindow!=null){
                 getContentPane().remove(gameWindow);
             }
-            gameWindow = new Game(e.getActionCommand());
+            int levelSlot = Integer.parseInt(e.getActionCommand());
+            Level level = levelsDB.elementAt(levelSlot);
+            Block[] blocks = new Block[level.blocks.length];
+            for(int i=0;i<blocks.length;i++){
+                int x = (int)level.blocks[i][0];
+                int y = (int)level.blocks[i][1];
+                int length = (int)level.blocks[i][2];
+                String dir = (String)level.blocks[i][3];
+                Boolean target = (Boolean)level.blocks[i][4];
+                blocks[i] = new Block(x,y,length,dir,target);
+            }
+            gameWindow = new Game(blocks,level.bestTime);
             getContentPane().add(gameWindow, "Game");
             cards.show(getContentPane(), "Game");
         }

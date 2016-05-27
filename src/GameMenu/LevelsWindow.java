@@ -53,7 +53,7 @@ public class LevelsWindow extends PanelModel {
                 JButton levelButton = new JButton(""+i);
                 levelButton.setText("<html><center>Level "+(i+1)+"<br/>"+vector.elementAt(i).bestTime+"</center></html>");
                 if(this.getClass().getSimpleName().equals("LevelsWindow")){
-                    levelButton.setActionCommand(""+(i+1));
+                    levelButton.setActionCommand(""+(i));
                     levelButton.addActionListener(controller.new gamePress());
                 }
                 else{
