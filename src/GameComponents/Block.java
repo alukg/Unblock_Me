@@ -8,7 +8,7 @@ import java.awt.peer.KeyboardFocusManagerPeer;
 import javax.swing.JLabel;
 
 
-public class Block extends JLabel
+public class Block extends JLabel 
 {
 	private int my_x;
 	private int my_y;
@@ -29,7 +29,7 @@ public class Block extends JLabel
 		this.my_y = y;
 		this.my_length = length;
 		this.my_Selected = false;
-	}
+			}
 	public Block(Block b)
 	{
 		 super();
@@ -90,12 +90,13 @@ public class Block extends JLabel
 	}
 	public void moveUp()
 	{
-		this.my_y = this.my_y + 1;
+		this.my_y = this.my_y - 1;
 	}
 	public void moveDown()
 	{
-		this.my_y = this.my_y - 1;
+		this.my_y = this.my_y + 1;
 	}
+	
 	
 	
 	

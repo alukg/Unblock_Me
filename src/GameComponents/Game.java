@@ -1,9 +1,8 @@
 package GameComponents;
-
+import GameMenu.PanelModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import GameMenu.PanelModel;
 
 import java.util.Stack;
 import javax.swing.*;
@@ -11,16 +10,10 @@ import javax.swing.Timer;
 
 import java.awt.*;
 
-public class Game extends PanelModel
+public class Game extends PanelModel implements ActionListener
 {
 	private Board board;
-	public Stack<Object[]> getLastMove() {
-		return lastMove;
-	}
-	public void setLastMove(Stack<Object[]> lastMove) {
-		this.lastMove = lastMove;
-	}
-	private Stack<Object[]> lastMove;
+	
 	private Timer time;
 	private String BestTime;
 	private static int min=0,sec=0;
@@ -29,34 +22,23 @@ public class Game extends PanelModel
 	
 	public Game()
 	{
-		this.lastMove = new Stack<Board>();
 		undo = new JButton("Undo");
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, new starChrono());
 		this.time.start();
+		undo.addActionListener(this);
 
 		menuPanel.add(labelTimer);
 		menuPanel.add(undo);
-		
-		//this.board.setFocusable(true);
-		//gbc.gridx = 1;
-		//gbc.gridy = 1;
-		//this.add(this.board, gbc);
-		//this.lastMove.push(new Board(this.board));
 	}
 
 	public Game(Board b, String BestTime)
 	{
-		this.lastMove = new Stack<Board>();
 		this.BestTime= BestTime;
-		//this.time = new Timer(true);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.board = new Board(b);
-		//b.getSelected().setIcon(new ImageIcon("Images/BlockSelected"));
 		undo = new JButton("Undo");
-		//buttonUndo.add(new)
 		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime);
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
@@ -64,6 +46,7 @@ public class Game extends PanelModel
 		this.time = new Timer(1000, new starChrono());
 		this.time.start();
 		//Add more Buttons
+		undo.addActionListener(this);
 
 		menuPanel.add(labelTimer);
 		menuPanel.add(labelBestTime);
@@ -72,6 +55,8 @@ public class Game extends PanelModel
 		//this.board.setFocusable(true);
 		mainPanel.add(this.board);
 		//this.lastMove.push(new Board(this.board));
+		//this.board.requestFocusInWindow();
+
 	}
 	
 	public Board getBoard() {
@@ -113,15 +98,18 @@ public class Game extends PanelModel
 				String min2 = (min<10?"0":"")+min;
 				labelTimer.setText(min2+":00");
 			}
+			
 		}
 	}
 
-	public void GameFinished()
+	public void actionPerformed(ActionEvent e) 
 	{
-		this.time.stop();
-		String finishTime = this.labelTimer.getText();
-		
+		if(e.getSource() == undo)
+		{
+			this.board.undoFunction();
+		}
 	}
+
 
 	
 
