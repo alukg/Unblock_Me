@@ -62,20 +62,25 @@ public class Controller extends JFrame {
     }
 
     public void gameFinished(String thisTime, String bestTime){
-        String[] thisTimeSplit = thisTime.split(" \\: ");
-        String[] bestTimeSplit = bestTime.split(" \\: ");
         String newBestTime;
-        if(Integer.parseInt(thisTimeSplit[0])>Integer.parseInt(bestTimeSplit[0]))
-           newBestTime=thisTime;
-        else if(Integer.parseInt(thisTimeSplit[0])<Integer.parseInt(bestTimeSplit[0]))
-            newBestTime=bestTime;
+        if(bestTime.equals("--:--")){
+            newBestTime=thisTime;
+        }
         else{
-            if(Integer.parseInt(thisTimeSplit[1])>Integer.parseInt(bestTimeSplit[1]))
+            String[] thisTimeSplit = thisTime.split(":");
+            String[] bestTimeSplit = bestTime.split(":");
+            if(Integer.parseInt(thisTimeSplit[0])<Integer.parseInt(bestTimeSplit[0]))
                 newBestTime=thisTime;
-            else if(Integer.parseInt(thisTimeSplit[1])<Integer.parseInt(bestTimeSplit[1]))
+            else if(Integer.parseInt(thisTimeSplit[0])>Integer.parseInt(bestTimeSplit[0]))
                 newBestTime=bestTime;
-            else
-                newBestTime=thisTime;
+            else{
+                if(Integer.parseInt(thisTimeSplit[1])<Integer.parseInt(bestTimeSplit[1]))
+                    newBestTime=thisTime;
+                else if(Integer.parseInt(thisTimeSplit[1])>Integer.parseInt(bestTimeSplit[1]))
+                    newBestTime=bestTime;
+                else
+                    newBestTime=thisTime;
+            }
         }
         levelsDB.elementAt(openLevel).bestTime=newBestTime;
         boolean stop = false;
@@ -84,9 +89,9 @@ public class Controller extends JFrame {
             JPanel panel = new JPanel();
             String dialogString;
             if(newBestTime.equals(thisTime))
-                dialogString = "Congradulations! New record!\nBest time: "+newBestTime+"\nYour time: "+thisTime;
+                dialogString = "<html><center>Congradulations! New record!<br/>Best time: "+newBestTime+"<br/>Your time: "+thisTime+"</center></html>";
             else
-                dialogString = "Congradulations! Successfully complete a level\nBest time: "+newBestTime+"\nYour time: "+thisTime;
+                dialogString = "<html><center>Congradulations! Successfully complete this level<br/>Best time: "+newBestTime+"<br/>Your time: "+thisTime+"</center></html>";
             panel.add(new JLabel(dialogString), BorderLayout.CENTER);
             int selected = JOptionPane.showOptionDialog(controller,panel,"", JOptionPane.DEFAULT_OPTION,
                     JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
@@ -103,16 +108,20 @@ public class Controller extends JFrame {
                 cards.show(getContentPane(),"Select level");
                 gameWindow = null;
             }
-            else{ //next level
+            else if(selected==2){ //next level
                 if(openLevel==levelsDB.size()-1){
+                    String[] ok = {"Ok"};
                     JOptionPane.showOptionDialog(controller,"There is no next level","", JOptionPane.OK_OPTION,
-                            JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                            JOptionPane.PLAIN_MESSAGE, null, ok, options[0]);
                     continue;
                 }
                 else{
                     stop = true;
                     newGame(openLevel+1);
                 }
+            }
+            else{
+                continue;
             }
         }
     }
@@ -164,9 +173,9 @@ public class Controller extends JFrame {
         Block[] blocks = new Block[level.blocks.length];
         for(int i=0;i<blocks.length;i++){
             Double dx = (Double)level.blocks[i][0];
-            int x = dx.intValue();
+            int x = dx.intValue()+1;
             Double dy = (Double)level.blocks[i][1];
-            int y = dy.intValue();
+            int y = dy.intValue()+1;
             Double dlength = (Double)level.blocks[i][2];
             int length = dlength.intValue();
             String dir = (String)level.blocks[i][3];

@@ -28,25 +28,21 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	
 	
 
-	public Board(Game game, Block[] allBlocks)
-	{
+	public Board(Game game, Block[] allBlocks) {
 		this.lastMove = new Stack<Object[]>();
 		//this.size = size;
 		this.game = game;
 		this.setLayout(new GridBagLayout());
-		this.setSize(300, 300);
-		this.setBackground(Color.YELLOW);
+		this.setSize(350, 350);
+		this.setBackground(new Color(24, 99, 131));
 		this.allBlocks = new Block[allBlocks.length];
-		for (int i = 0; i < allBlocks.length; i++) 
-		{
+		for (int i = 0; i < allBlocks.length; i++) {
 			this.allBlocks[i] = new Block(allBlocks[i]);
 		}
 		this.selected = this.allBlocks[0];
 		CreateFrame(this.size, this.allBlocks);
 		AddBlocks(this.allBlocks);
-		this.setBorder(BorderFactory.createTitledBorder(
-		       BorderFactory.createEtchedBorder(), "Board"));
-		}
+	}
 	
 	public Board(Board b)
 	{
@@ -141,10 +137,13 @@ public class Board extends JPanel implements MouseListener , KeyListener
 					gbc = new GridBagConstraints();
 					if( j == this.finishj && i == this.finishi)
 					{
+						labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
+						labels[i-1][j-1].setBackground(new Color(24,99,131));
 						labels[i-1][j-1].setText("--->");
 					}
 					else
-						labels[i-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+						labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
+						labels[i-1][j-1].setBackground(new Color(24,99,131));
 					gbc.gridx = j;
 					gbc.gridy = i;
 					this.add(labels[i-1][j-1], gbc);
@@ -263,7 +262,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				GridBagConstraints gbc = new GridBagConstraints();
 				gbc.gridx = j;
 				gbc.gridy = i;
-				this.labels[i-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+				this.labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
 				this.add(this.labels[i-1][j-1],gbc);
 				gbc.gridx = j+1;
 				gbc.gridy = i;
@@ -281,7 +280,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j+length-1;
 		gbc.gridy = i;
-		this.labels[i-1][j+length-1-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+		this.labels[i-1][j+length-1-1].setPreferredSize(new Dimension(58,58));
 		this.add(this.labels[i-1][j+length-1-1],gbc);
 		gbc.gridx = j-1;
 		gbc.gridy = i;
@@ -300,7 +299,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j;
 		gbc.gridy = i+length -1;
-		this.labels[i+length-1-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+		this.labels[i+length-1-1][j-1].setPreferredSize(new Dimension(58,58));
 		this.add(this.labels[i+length-1-1][j-1],gbc);
 		gbc.gridx = j;
 		gbc.gridy = i-1;
@@ -321,7 +320,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j;
 		gbc.gridy = i;
-		this.labels[i-1][j-1].setIcon(new ImageIcon("Images/FreeSpace.jpg"));
+		this.labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
 		this.add(this.labels[i-1][j-1],gbc);
 		gbc.gridx = j;
 		gbc.gridy = i+1;

@@ -1,5 +1,6 @@
 package GameComponents;
 import GameMenu.Controller;
+import GameMenu.JButtonWithBackground;
 import GameMenu.PanelModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +24,10 @@ public class Game extends PanelModel implements ActionListener
 	
 	public Game()
 	{
-		undo = new JButton("Undo");
+		undo = new JButtonWithBackground("design\\Undo.jpg");
+		JButton selectLevel = new JButtonWithBackground("design\\return.jpg");
+		selectLevel.setActionCommand("Select level");
+		selectLevel.addActionListener(controller.new menuPress());
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
@@ -33,14 +37,20 @@ public class Game extends PanelModel implements ActionListener
 
 		menuPanel.add(labelTimer);
 		menuPanel.add(undo);
+		menuPanel.add(selectLevel);
 	}
 
 	public Game(Controller controller, Block[] b, String BestTime)
 	{
 		this.BestTime= BestTime;
 		this.controller = controller;
-		undo = new JButton("Undo");
-		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime);
+		undo = new JButtonWithBackground("design\\Undo.jpg");
+		JButton selectLevel = new JButtonWithBackground("design\\return.jpg");
+		selectLevel.setActionCommand("Select level");
+		selectLevel.addActionListener(controller.new menuPress());
+		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime,SwingConstants.CENTER);
+		labelBestTime.setForeground(Color.WHITE);
+		labelBestTime.setFont(new Font(labelBestTime.getFont().getFontName(),Font.BOLD,16));
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
 		labelTimer.setForeground(Color.WHITE);
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
@@ -52,9 +62,11 @@ public class Game extends PanelModel implements ActionListener
 		menuPanel.add(labelTimer);
 		menuPanel.add(labelBestTime);
 		menuPanel.add(undo);
+		menuPanel.add(selectLevel);
 		
 		//this.board.setFocusable(true);
 		this.board = new Board(this, b);
+		mainPanel.setLayout(null);
 		mainPanel.add(this.board);
 		//this.lastMove.push(new Board(this.board));
 		//this.board.requestFocusInWindow();
