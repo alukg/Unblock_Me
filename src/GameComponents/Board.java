@@ -15,11 +15,12 @@ import javax.swing.JPanel;
 
 public class Board extends JPanel implements MouseListener , KeyListener
 {
+	private Game game;
 	private Block selected;
 	private Block[] allBlocks;
 	private int[][] arrBoard;
 	private JLabel[][] labels;
-	private int size;
+	private final int size = 6;
 	private final int finishi = 3;
 	private final int finishj = 6;
 	private Stack<Object[]> lastMove;
@@ -27,11 +28,11 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	
 	
 
-	public Board(Block[] allBlocks, Block selected, int size)
+	public Board(Game game, Block[] allBlocks)
 	{
 		this.lastMove = new Stack<Object[]>();
-		this.size = size;
-		this.selected = selected;
+		//this.size = size;
+		this.game = game;
 		this.setLayout(new GridBagLayout());
 		this.setSize(300, 300);
 		this.setBackground(Color.YELLOW);
@@ -40,6 +41,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		{
 			this.allBlocks[i] = new Block(allBlocks[i]);
 		}
+		this.selected = this.allBlocks[0];
 		CreateFrame(this.size, this.allBlocks);
 		AddBlocks(this.allBlocks);
 		this.setBorder(BorderFactory.createTitledBorder(
@@ -48,8 +50,12 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	
 	public Board(Board b)
 	{
-		new Board(b.getAllBlocks(), b.getSelected(), b.getBoardSize());
+		new Board(b.getGame() , b.getAllBlocks());
 	}
+	public Game getGame() {
+		return game;
+	}
+
 	public int getFinishj() 
 	{
 		return finishj;
@@ -328,6 +334,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		if(this.arrBoard[finishi][finishj] > -1 && this.allBlocks[this.arrBoard[finishi][finishj]].getMy_target())
 		{
 			System.out.println("Finish game");
+			this.game.Finish();
 		}
 		repaint();
 		return moveDone;

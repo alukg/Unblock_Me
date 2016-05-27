@@ -1,4 +1,5 @@
 package GameComponents;
+import GameMenu.Controller;
 import GameMenu.PanelModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ import java.awt.*;
 public class Game extends PanelModel implements ActionListener
 {
 	private Board board;
-	
+	Controller controller;
 	private Timer time;
 	private String BestTime;
 	private static int min=0,sec=0;
@@ -34,10 +35,10 @@ public class Game extends PanelModel implements ActionListener
 		menuPanel.add(undo);
 	}
 
-	public Game(Board b, String BestTime)
+	public Game(Controller controller, Block[] b, String BestTime)
 	{
 		this.BestTime= BestTime;
-		this.board = new Board(b);
+		this.controller = controller;
 		undo = new JButton("Undo");
 		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime);
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
@@ -53,6 +54,7 @@ public class Game extends PanelModel implements ActionListener
 		menuPanel.add(undo);
 		
 		//this.board.setFocusable(true);
+		this.board = new Board(this, b);
 		mainPanel.add(this.board);
 		//this.lastMove.push(new Board(this.board));
 		//this.board.requestFocusInWindow();
@@ -109,6 +111,12 @@ public class Game extends PanelModel implements ActionListener
 			this.board.undoFunction();
 		}
 	}
+	public void Finish()
+	{
+		this.time.stop();
+		String currentTime = this.labelTimer.getText();
+		this.controller.gameFinished(currentTime);	
+		}
 
 
 	
