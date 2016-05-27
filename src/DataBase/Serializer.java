@@ -15,7 +15,7 @@ public class Serializer
         Gson gson = new Gson();
         String jsonString = gson.toJson(vector);
         try{
-            File file = new File("C:\\Users\\guyal\\Desktop\\levels.txt");
+            File file = new File("levels.txt");
             FileWriter fileWriter = new FileWriter(file,false);
             fileWriter.write(jsonString);
             fileWriter.close();
@@ -30,7 +30,7 @@ public class Serializer
         Gson gson = new Gson();
         Vector<Level> vector = null;
         try {
-            File file = new File("C:\\Users\\guyal\\Desktop\\levels.txt");
+            File file = new File("levels.txt");
             FileInputStream fis = new FileInputStream(file);
             byte[] data = new byte[(int) file.length()];
             fis.read(data);
