@@ -300,15 +300,15 @@ public class GameEditor extends PanelModel{
         @Override
         public void actionPerformed(ActionEvent e) {
             Object[][] blocks = new Object[ships.size()+1][5];
-            blocks[0][0] = 0;
-            blocks[0][1] = 2;
-            blocks[0][2] = 2;
+            blocks[0][0] = new Double(0);
+            blocks[0][1] = new Double(2);
+            blocks[0][2] = new Double(2);
             blocks[0][3] = "Horizontal";
             blocks[0][4] = true;
             for(int i=0;i<ships.size();i++){
-                blocks[i+1][0] = ships.elementAt(i).getMy_x();
-                blocks[i+1][1] = ships.elementAt(i).getMy_y();
-                blocks[i+1][2] = ships.elementAt(i).getMy_length();
+                blocks[i+1][0] = new Double(ships.elementAt(i).getMy_x());
+                blocks[i+1][1] = new Double(ships.elementAt(i).getMy_y());
+                blocks[i+1][2] = new Double(ships.elementAt(i).getMy_length());
                 blocks[i+1][3] = ships.elementAt(i).getMy_dir();
                 blocks[i+1][4] = ships.elementAt(i).getMy_target();
             }

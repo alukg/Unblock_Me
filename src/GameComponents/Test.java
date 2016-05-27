@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 
 
 public class Test {
-
+/*
 	public static void main(String[] args)
 	{
 		Game g = new Game();
@@ -29,5 +29,6 @@ public class Test {
 		frame.pack();
 	}
 
-}
+*/
 
+}

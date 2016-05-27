@@ -163,9 +163,12 @@ public class Controller extends JFrame {
         Level level = levelsDB.elementAt(levelSlot);
         Block[] blocks = new Block[level.blocks.length];
         for(int i=0;i<blocks.length;i++){
-            int x = (int)level.blocks[i][0];
-            int y = (int)level.blocks[i][1];
-            int length = (int)level.blocks[i][2];
+            Double dx = (Double)level.blocks[i][0];
+            int x = dx.intValue();
+            Double dy = (Double)level.blocks[i][1];
+            int y = dy.intValue();
+            Double dlength = (Double)level.blocks[i][2];
+            int length = dlength.intValue();
             String dir = (String)level.blocks[i][3];
             Boolean target = (Boolean)level.blocks[i][4];
             blocks[i] = new Block(x,y,length,dir,target);
