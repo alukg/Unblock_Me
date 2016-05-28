@@ -155,21 +155,30 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		{
 			gbc = new GridBagConstraints();
 			JLabel toAdd = new Block(this.allBlocks[i]);
-			if(((Block)(toAdd)).getMy_target())
-				toAdd.setIcon(new ImageIcon("Images/BlockTarget.png"));
-			else
-				toAdd.setIcon(new ImageIcon("Images/Block.png"));
 			gbc.gridx = ((Block)(toAdd)).getMy_x();
 			gbc.gridy = ((Block)(toAdd)).getMy_y();
 			if(((Block)(toAdd)).getMy_dir().equals("Horizontal"))
 			{
 				gbc.gridwidth = ((Block)(toAdd)).getMy_length();
 				gbc.fill = GridBagConstraints.HORIZONTAL;
+				if(((Block)(toAdd)).getMy_target())
+					toAdd.setIcon(new ImageIcon("Design/shipchoose.jpg"));
+				else
+				{
+					if(gbc.gridwidth == 3)
+						toAdd.setIcon(new ImageIcon("Design/ships/horizontal3ship.png"));
+					else
+						toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
+				}
 			}
 			else
 			{
 				gbc.gridheight = ((Block)(toAdd)).getMy_length();
-				gbc.fill = GridBagConstraints.HORIZONTAL;
+				gbc.fill = GridBagConstraints.VERTICAL;
+				if(gbc.gridheight == 3)
+					toAdd.setIcon(new ImageIcon("Design/ships/vertical3ship.png"));
+				else
+					toAdd.setIcon(new ImageIcon("Design/ships/vertical2ship.png"));
 			}
 			toAdd.addMouseListener(this);
 			toAdd.addKeyListener(this);
