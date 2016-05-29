@@ -153,23 +153,35 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		}
 		for (int i = 0; i < this.allBlocks.length; i++) 
 		{
+
 			gbc = new GridBagConstraints();
 			JLabel toAdd = new Block(this.allBlocks[i]);
-			if(((Block)(toAdd)).getMy_target())
-				toAdd.setIcon(new ImageIcon("Images/BlockTarget.png"));
-			else
-				toAdd.setIcon(new ImageIcon("Images/Block.png"));
 			gbc.gridx = ((Block)(toAdd)).getMy_x();
 			gbc.gridy = ((Block)(toAdd)).getMy_y();
 			if(((Block)(toAdd)).getMy_dir().equals("Horizontal"))
 			{
 				gbc.gridwidth = ((Block)(toAdd)).getMy_length();
 				gbc.fill = GridBagConstraints.HORIZONTAL;
+				if(((Block)(toAdd)).getMy_target()) {
+					toAdd.setIcon(new ImageIcon("Design/shipchoose.jpg"));
+					toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
+				}
+				else
+				{
+					if(gbc.gridwidth == 3)
+						toAdd.setIcon(new ImageIcon("Design/ships/horizontal3ship.png"));
+					else
+						toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
+				}
 			}
 			else
 			{
 				gbc.gridheight = ((Block)(toAdd)).getMy_length();
-				gbc.fill = GridBagConstraints.HORIZONTAL;
+				gbc.fill = GridBagConstraints.VERTICAL;
+				if(gbc.gridheight == 3)
+					toAdd.setIcon(new ImageIcon("Design/ships/vertical3ship.png"));
+				else
+					toAdd.setIcon(new ImageIcon("Design/ships/vertical2ship.png"));
 			}
 			toAdd.addMouseListener(this);
 			toAdd.addKeyListener(this);
@@ -339,50 +351,13 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		return moveDone;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		if(blockMoved)
-		{
-			
-		/*int dirNum =-1;
-			if(dir.equals("up"))
-				dirNum=8;
-			else if(dir.equals("down"))
-				dirNum=2;
-			else if(dir.equals("left"))
-				dirNum=4;
-			else if(dir.equals("right"))
-				dirNum = 6;
-			this.lastMove.push(new Object[x][y][dirNum]);
-			
-		}*/
-		
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(e.getSource() instanceof Block)
 		{
+			this.selected.setBorder(null);
 			this.selected  = (Block)e.getSource();
+			this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocus();
 		}
