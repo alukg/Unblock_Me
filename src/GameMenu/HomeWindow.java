@@ -1,5 +1,8 @@
 package GameMenu;
 
+import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.PanelModel;
+
 import javax.swing.*;
 
 public class HomeWindow extends PanelModel {

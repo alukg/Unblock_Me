@@ -1,5 +1,7 @@
 package GameMenu;
 
+import GameMenu.ModelClasses.JButtonWithBackground;
+
 import javax.swing.*;
 
 public class EditorWindow extends LevelsWindow {

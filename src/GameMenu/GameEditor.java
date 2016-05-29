@@ -2,6 +2,8 @@ package GameMenu;
 
 import GameComponents.Block;
 import GameComponents.Level;
+import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.PanelModel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,8 +14,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 
-public class GameEditor extends PanelModel{
-    public Controller controller;
+public class GameEditor extends PanelModel {
+    private Controller controller;
     private Vector<Block> ships;
     private GridBagConstraints gbc;
     private Vector<freeSpaceButton> freeSpaces;

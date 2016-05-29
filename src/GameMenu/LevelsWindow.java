@@ -1,15 +1,18 @@
 package GameMenu;
 
 import GameComponents.Level;
+import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.PanelModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
 public class LevelsWindow extends PanelModel {
 
-    Controller controller;
-    JPanel levelsChoose = null;
-    JScrollPane scrollPane;
+    private Controller controller;
+    private JPanel levelsChoose = null;
+    private JScrollPane scrollPane;
 
     public LevelsWindow(Controller controller) {
         this.controller = controller;
@@ -47,10 +50,11 @@ public class LevelsWindow extends PanelModel {
             levelsChoose.add(noLevels);
         }
         else{
-            levelsChoose.setLayout(new GridLayout(0, 3, 10, 10));
+            levelsChoose.setLayout(new GridBagLayout());
             int i = 0;
             while(i<vector.size()){
                 JButton levelButton = new JButton(""+i);
+                levelButton.setPreferredSize(new Dimension(100,100));
                 levelButton.setText("<html><center>Level "+(i+1)+"<br/>"+vector.elementAt(i).bestTime+"</center></html>");
                 if(this.getClass().getSimpleName().equals("LevelsWindow")){
                     levelButton.setActionCommand(""+(i));
@@ -60,6 +64,11 @@ public class LevelsWindow extends PanelModel {
                     levelButton.setActionCommand(""+i);
                     levelButton.addActionListener(controller.new removeLevelPress());
                 }
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridwidth = 1;
+                gbc.gridheight = 1;
+                gbc.gridx = i%3;
+                gbc.gridy = i/3;
                 levelsChoose.add(levelButton);
                 i++;
             }
