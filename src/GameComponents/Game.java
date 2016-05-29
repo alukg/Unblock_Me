@@ -24,8 +24,8 @@ public class Game extends PanelModel implements ActionListener
 	
 	public Game()
 	{
-		undo = new JButtonWithBackground("design\\Undo.jpg");
-		JButton selectLevel = new JButtonWithBackground("design\\return.jpg");
+		undo = new JButtonWithBackground("design\\UndoPirate.jpg");
+		JButton selectLevel = new JButtonWithBackground("design\\returnPirate.jpg");
 		selectLevel.setActionCommand("Select level");
 		selectLevel.addActionListener(controller.new menuPress());
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
@@ -38,14 +38,16 @@ public class Game extends PanelModel implements ActionListener
 		menuPanel.add(labelTimer);
 		menuPanel.add(undo);
 		menuPanel.add(selectLevel);
+
+		mainPanel.setBackground(new Color(24,99,131));
 	}
 
 	public Game(Controller controller, Block[] b, String BestTime)
 	{
 		this.BestTime= BestTime;
 		this.controller = controller;
-		undo = new JButtonWithBackground("design\\Undo.jpg");
-		JButton selectLevel = new JButtonWithBackground("design\\return.jpg");
+		undo = new JButtonWithBackground("design\\UndoPirate.jpg");
+		JButton selectLevel = new JButtonWithBackground("design\\returnPirate.jpg");
 		selectLevel.setActionCommand("Select level");
 		selectLevel.addActionListener(controller.new menuPress());
 		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime,SwingConstants.CENTER);

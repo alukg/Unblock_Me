@@ -19,19 +19,20 @@ public class GameEditor extends PanelModel {
     private Vector<Block> ships;
     private GridBagConstraints gbc;
     private Vector<freeSpaceButton> freeSpaces;
+    private JLabel targetShip;
 
     public GameEditor(Controller controller) {
         this.controller = controller;
         ships = new Vector<>();
         freeSpaces = new Vector<>();
 
-        JButton returnButton = new JButtonWithBackground("design\\return.jpg");
+        JButton returnButton = new JButtonWithBackground("design\\returnPirate.jpg");
         returnButton.setActionCommand("Editor");
         returnButton.addActionListener(controller.new menuPress());
-        JButton saveLevel = new JButtonWithBackground("design\\savelevel.jpg");
+        JButton saveLevel = new JButtonWithBackground("design\\savelevelPirate.jpg");
         saveLevel.setActionCommand("Save Level");
         saveLevel.addActionListener(new SaveLevelListener());
-        JButton createShip = new JButtonWithBackground("design\\addship.jpg");
+        JButton createShip = new JButtonWithBackground("design\\addshipPirate.jpg");
         createShip.addActionListener(new CreateShipListener());
 
         menuPanel.add(returnButton);
@@ -39,6 +40,7 @@ public class GameEditor extends PanelModel {
         menuPanel.add(createShip);
 
         mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setBackground(new Color(24,99,131));
         gbc = new GridBagConstraints();
 
         arrangeBoard();
@@ -51,8 +53,8 @@ public class GameEditor extends PanelModel {
                     gbc.gridx = 0;
                     gbc.gridy = 2;
                     gbc.gridwidth = 2;
-                    JLabel targetShip = new JLabel();
-                    targetShip.setIcon(new ImageIcon("design\\ships\\horizontal2ship.png"));
+                    targetShip = new JLabel();
+                    targetShip.setIcon(new ImageIcon("design\\ships\\targetShip.png"));
                     mainPanel.add(targetShip,gbc);
                 }
                 else if(i==2 && j==1){

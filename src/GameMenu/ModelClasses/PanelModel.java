@@ -17,10 +17,10 @@ public class PanelModel extends JSplitPane {
         this.setPreferredSize(new Dimension(520, 350));
         this.setDividerSize(4);
         mainPanel = new JPanel();
-        mainPanel.setBackground(new Color(24, 99, 131));
-        menuPanel = new JPanelWithBackground("design\\back.jpg");
+        mainPanel.setBackground(Color.BLACK);
+        menuPanel = new JPanelWithBackground("design\\backPirate.jpg");
         menuPanel.setLayout(new GridLayout(8, 1));
-        menuPanel.setBackground(new Color(19, 115, 132));
+        menuPanel.setBackground(Color.BLACK);
         setRightComponent(menuPanel);
         setLeftComponent(mainPanel);
     }
@@ -35,7 +35,7 @@ public class PanelModel extends JSplitPane {
         return location;
     }
 
-    private class JPanelWithBackground extends JPanel {
+    public class JPanelWithBackground extends JPanel {
 
         private Image backgroundImage;
 

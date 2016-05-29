@@ -16,7 +16,7 @@ public class LevelsWindow extends PanelModel {
 
     public LevelsWindow(Controller controller) {
         this.controller = controller;
-        JButton home = new JButtonWithBackground("design\\home.jpg");
+        JButton home = new JButtonWithBackground("design\\homePirate.jpg");
         home.setActionCommand("Home");
         home.addActionListener(controller.new menuPress());
         menuPanel.add(home);
@@ -26,7 +26,7 @@ public class LevelsWindow extends PanelModel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setBackground(new Color(24, 99, 131));
+        scrollPane.getVerticalScrollBar().setBackground(Color.BLACK);
 
         addLevelChoosePanel();
 
@@ -37,7 +37,7 @@ public class LevelsWindow extends PanelModel {
         if (levelsChoose!=null && levelsChoose.getParent()!=null)
             scrollPane.remove(levelsChoose);
         levelsChoose = new JPanel();
-        levelsChoose.setBackground(new Color(24, 99, 131));
+        levelsChoose.setBackground(Color.BLACK);
 
         scrollPane.setViewportView(levelsChoose);
 
@@ -53,7 +53,7 @@ public class LevelsWindow extends PanelModel {
             levelsChoose.setLayout(new GridBagLayout());
             int i = 0;
             while(i<vector.size()){
-                JButton levelButton = new JButtonWithBackground("design/levelButton.jpg");
+                JButton levelButton = new JButtonWithBackground("design/levelButtonPirate.jpg");
                 levelButton.setPreferredSize(new Dimension(100,100));
                 levelButton.setHorizontalTextPosition(JButton.CENTER);
                 levelButton.setVerticalTextPosition(JButton.CENTER);
