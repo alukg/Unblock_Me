@@ -1,7 +1,7 @@
 package GameComponents;
 import GameMenu.Controller;
-import GameMenu.JButtonWithBackground;
-import GameMenu.PanelModel;
+import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.PanelModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

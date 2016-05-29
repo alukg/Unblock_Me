@@ -1,5 +1,7 @@
 package GameComponents;
 
+import com.sun.java.swing.plaf.windows.WindowsBorders;
+
 import java.awt.*;
 
 import java.awt.event.KeyEvent;
@@ -12,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.StrokeBorder;
 
 public class Board extends JPanel implements MouseListener , KeyListener
 {
@@ -19,16 +22,15 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	private Block selected;
 	private Block[] allBlocks;
 	private int[][] arrBoard;
-	private JLabel[][] labels;
+	private EmptySpace[][] labels;
 	private final int size = 6;
 	private final int finishi = 3;
 	private final int finishj = 6;
 	private Stack<Object[]> lastMove;
-
-	
-	
+	private ImageIcon freeSpaceIcon;
 
 	public Board(Game game, Block[] allBlocks) {
+		freeSpaceIcon = new ImageIcon("design//emptySpace.jpg");
 		this.lastMove = new Stack<Object[]>();
 		//this.size = size;
 		this.game = game;
@@ -119,12 +121,12 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	}
 	private void AddBlocks(Block[] allBlocks)
 	{
-		this.labels = new JLabel[this.size][this.size];
+		this.labels = new EmptySpace[this.size][this.size];
 		for(int i= 0; i < this.size; i++)
 		{
 			for (int j = 0; j < this.size; j++) 
 			{
-				labels[i][j] = new JLabel();
+				labels[i][j] = new EmptySpace();
 			}
 		}
 		GridBagConstraints gbc;
@@ -137,13 +139,10 @@ public class Board extends JPanel implements MouseListener , KeyListener
 					gbc = new GridBagConstraints();
 					if( j == this.finishj && i == this.finishi)
 					{
-						labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
-						labels[i-1][j-1].setBackground(new Color(24,99,131));
 						labels[i-1][j-1].setText("--->");
 					}
 					else
-						labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
-						labels[i-1][j-1].setBackground(new Color(24,99,131));
+
 					gbc.gridx = j;
 					gbc.gridy = i;
 					this.add(labels[i-1][j-1], gbc);
@@ -163,25 +162,34 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				gbc.gridwidth = ((Block)(toAdd)).getMy_length();
 				gbc.fill = GridBagConstraints.HORIZONTAL;
 				if(((Block)(toAdd)).getMy_target()) {
-					toAdd.setIcon(new ImageIcon("Design/shipchoose.jpg"));
+					toAdd.setPreferredSize(new Dimension(116,58));
+					toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
 					toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
 				}
 				else
 				{
-					if(gbc.gridwidth == 3)
+					if(gbc.gridwidth == 3) {
+						toAdd.setPreferredSize(new Dimension(174, 58));
 						toAdd.setIcon(new ImageIcon("Design/ships/horizontal3ship.png"));
-					else
+					}
+					else {
+						toAdd.setPreferredSize(new Dimension(116, 58));
 						toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
+					}
 				}
 			}
 			else
 			{
 				gbc.gridheight = ((Block)(toAdd)).getMy_length();
 				gbc.fill = GridBagConstraints.VERTICAL;
-				if(gbc.gridheight == 3)
+				if(gbc.gridheight == 3) {
+					toAdd.setPreferredSize(new Dimension(58, 174));
 					toAdd.setIcon(new ImageIcon("Design/ships/vertical3ship.png"));
-				else
+				}
+				else {
+					toAdd.setPreferredSize(new Dimension(58, 116));
 					toAdd.setIcon(new ImageIcon("Design/ships/vertical2ship.png"));
+				}
 			}
 			toAdd.addMouseListener(this);
 			toAdd.addKeyListener(this);
@@ -274,7 +282,6 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				GridBagConstraints gbc = new GridBagConstraints();
 				gbc.gridx = j;
 				gbc.gridy = i;
-				this.labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
 				this.add(this.labels[i-1][j-1],gbc);
 				gbc.gridx = j+1;
 				gbc.gridy = i;
@@ -292,7 +299,6 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j+length-1;
 		gbc.gridy = i;
-		this.labels[i-1][j+length-1-1].setPreferredSize(new Dimension(58,58));
 		this.add(this.labels[i-1][j+length-1-1],gbc);
 		gbc.gridx = j-1;
 		gbc.gridy = i;
@@ -311,7 +317,6 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j;
 		gbc.gridy = i+length -1;
-		this.labels[i+length-1-1][j-1].setPreferredSize(new Dimension(58,58));
 		this.add(this.labels[i+length-1-1][j-1],gbc);
 		gbc.gridx = j;
 		gbc.gridy = i-1;
@@ -332,7 +337,6 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j;
 		gbc.gridy = i;
-		this.labels[i-1][j-1].setPreferredSize(new Dimension(58,58));
 		this.add(this.labels[i-1][j-1],gbc);
 		gbc.gridx = j;
 		gbc.gridy = i+1;
@@ -420,7 +424,15 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		
 	}
 
-	
-	
+	private class EmptySpace extends JLabel {
+
+		public EmptySpace(){
+			super();
+			setPreferredSize(new Dimension(58,58));
+			setBorder(BorderFactory.createLineBorder(Color.white));
+			setIcon(freeSpaceIcon);
+		}
+
+	}
 	
 }
