@@ -127,6 +127,7 @@ public class Game extends PanelModel implements ActionListener
 	{
 		this.time.stop();
 		String currentTime = this.labelTimer.getText();
+		this.time.restart();
 		this.controller.gameFinished(currentTime,BestTime);
 		}
 

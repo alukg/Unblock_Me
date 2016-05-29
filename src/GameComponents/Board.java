@@ -153,6 +153,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		}
 		for (int i = 0; i < this.allBlocks.length; i++) 
 		{
+
 			gbc = new GridBagConstraints();
 			JLabel toAdd = new Block(this.allBlocks[i]);
 			gbc.gridx = ((Block)(toAdd)).getMy_x();
@@ -161,8 +162,10 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			{
 				gbc.gridwidth = ((Block)(toAdd)).getMy_length();
 				gbc.fill = GridBagConstraints.HORIZONTAL;
-				if(((Block)(toAdd)).getMy_target())
+				if(((Block)(toAdd)).getMy_target()) {
 					toAdd.setIcon(new ImageIcon("Design/shipchoose.jpg"));
+					toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
+				}
 				else
 				{
 					if(gbc.gridwidth == 3)
@@ -348,50 +351,13 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		return moveDone;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		if(blockMoved)
-		{
-			
-		/*int dirNum =-1;
-			if(dir.equals("up"))
-				dirNum=8;
-			else if(dir.equals("down"))
-				dirNum=2;
-			else if(dir.equals("left"))
-				dirNum=4;
-			else if(dir.equals("right"))
-				dirNum = 6;
-			this.lastMove.push(new Object[x][y][dirNum]);
-			
-		}*/
-		
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(e.getSource() instanceof Block)
 		{
+			this.selected.setBorder(null);
 			this.selected  = (Block)e.getSource();
+			this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocus();
 		}
