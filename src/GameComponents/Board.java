@@ -44,6 +44,8 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		this.selected = this.allBlocks[0];
 		CreateFrame(this.size, this.allBlocks);
 		AddBlocks(this.allBlocks);
+		this.selected.setFocusable(true);
+		this.selected.requestFocus();
 	}
 	
 	public Board(Board b)
@@ -164,7 +166,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				if(((Block)(toAdd)).getMy_target()) {
 					toAdd.setPreferredSize(new Dimension(116,58));
 					toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
-					toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
+					//toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
 				}
 				else
 				{
@@ -194,6 +196,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			toAdd.addMouseListener(this);
 			toAdd.addKeyListener(this);
 			this.add(toAdd, gbc);
+			//this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 		}
 	}
 	public void ChangeColor()
@@ -357,14 +360,11 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		
 	public void mouseClicked(MouseEvent e) 
 	{
-		if(e.getSource() instanceof  EmptySpace)
-		{
-			System.out.println("Empty Pressed");
-		}
 		if(e.getSource() instanceof Block)
 		{
+			this.selected.setBorder(BorderFactory.createEmptyBorder());
 			this.selected  = (Block)e.getSource();
-			//this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
+			this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocus();
 		}
