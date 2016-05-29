@@ -53,15 +53,16 @@ public class LevelsWindow extends PanelModel {
             levelsChoose.setLayout(new GridBagLayout());
             int i = 0;
             while(i<vector.size()){
-                JButton levelButton = new JButton(""+i);
+                JButton levelButton = new JButtonWithBackground("design/levelButton.jpg");
                 levelButton.setPreferredSize(new Dimension(100,100));
+                levelButton.setHorizontalTextPosition(JButton.CENTER);
+                levelButton.setVerticalTextPosition(JButton.CENTER);
+                levelButton.setActionCommand(""+i);
                 levelButton.setText("<html><center>Level "+(i+1)+"<br/>"+vector.elementAt(i).bestTime+"</center></html>");
                 if(this.getClass().getSimpleName().equals("LevelsWindow")){
-                    levelButton.setActionCommand(""+(i));
                     levelButton.addActionListener(controller.new gamePress());
                 }
                 else{
-                    levelButton.setActionCommand(""+i);
                     levelButton.addActionListener(controller.new removeLevelPress());
                 }
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -69,7 +70,7 @@ public class LevelsWindow extends PanelModel {
                 gbc.gridheight = 1;
                 gbc.gridx = i%3;
                 gbc.gridy = i/3;
-                levelsChoose.add(levelButton);
+                levelsChoose.add(levelButton,gbc);
                 i++;
             }
         }
