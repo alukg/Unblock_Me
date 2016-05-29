@@ -32,7 +32,7 @@ public class Game extends PanelModel implements ActionListener
 		labelTimer.setForeground(Color.WHITE);
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, new starChrono());
-		this.time.start();
+		//this.time.start();
 		undo.addActionListener(this);
 
 		menuPanel.add(labelTimer);
@@ -55,7 +55,6 @@ public class Game extends PanelModel implements ActionListener
 		labelTimer.setForeground(Color.WHITE);
 		labelTimer.setFont(new Font(labelTimer.getFont().getFontName(),Font.BOLD,20));
 		this.time = new Timer(1000, new starChrono());
-		this.time.start();
 		//Add more Buttons
 		undo.addActionListener(this);
 
@@ -68,6 +67,8 @@ public class Game extends PanelModel implements ActionListener
 		this.board = new Board(this, b);
 		mainPanel.setLayout(null);
 		mainPanel.add(this.board);
+		this.time.start();
+
 		//this.lastMove.push(new Board(this.board));
 		//this.board.requestFocusInWindow();
 
@@ -87,7 +88,8 @@ public class Game extends PanelModel implements ActionListener
 		return BestTime;
 	}
 
-	public void setBestTime(String bestTime) {
+	public void setBestTime(String bestTime)
+	{
 		BestTime = bestTime;
 		JLabel labelbestTime = new JLabel("Best time is : "+this.BestTime);
 		menuPanel.add(labelbestTime);
@@ -125,9 +127,12 @@ public class Game extends PanelModel implements ActionListener
 	}
 	public void Finish()
 	{
+		System.out.println("stop timer");
 		this.time.stop();
 		String currentTime = this.labelTimer.getText();
-		this.time.restart();
+		min = 0;
+		sec = 0;
+		//this.time.restart();
 		this.controller.gameFinished(currentTime,BestTime);
 		}
 

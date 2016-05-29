@@ -124,24 +124,24 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		this.labels = new EmptySpace[this.size][this.size];
 		for(int i= 0; i < this.size; i++)
 		{
-			for (int j = 0; j < this.size; j++) 
+			for (int j = 0; j < this.size; j++)
 			{
 				labels[i][j] = new EmptySpace();
 			}
 		}
 		GridBagConstraints gbc;
-		for (int i = 1; i < this.size+1; i++) 
+		for (int i = 1; i < this.size+1; i++)
 		{
-			for (int j = 1; j < this.size+1; j++) 
+			for (int j = 1; j < this.size+1; j++)
 			{
 				if(this.arrBoard[i][j] == -1)
 				{
 					gbc = new GridBagConstraints();
-					if( j == this.finishj && i == this.finishi)
-					{
-						labels[i-1][j-1].setText("--->");
-					}
-					else
+					//if( j == this.finishj && i == this.finishi)
+					//{
+						//labels[i-1][j-1].setText("--->");
+					//}
+					//else
 
 					gbc.gridx = j;
 					gbc.gridy = i;
@@ -311,9 +311,9 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		{
 		this.arrBoard[i+length-1][j] = -1;
 		this.arrBoard[i-1][j] = blockNum;
+		this.remove(this.labels[i-1-1][j-1]);
 		this.remove(selected);
 		this.selected.moveUp();
-		this.remove(this.labels[i-1-1][j-1]);
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j;
 		gbc.gridy = i+length -1;
@@ -331,9 +331,9 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		{
 		this.arrBoard[i][j] = -1;
 		this.arrBoard[i+length][j] = blockNum;
+		this.remove(this.labels[i+length-1][j-1]);
 		this.remove(selected);
 		this.selected.moveDown();
-		this.remove(this.labels[i+length-1][j-1]);
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = j;
 		gbc.gridy = i;
@@ -357,11 +357,14 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		
 	public void mouseClicked(MouseEvent e) 
 	{
+		if(e.getSource() instanceof  EmptySpace)
+		{
+			System.out.println("Empty Pressed");
+		}
 		if(e.getSource() instanceof Block)
 		{
-			this.selected.setBorder(null);
 			this.selected  = (Block)e.getSource();
-			this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
+			//this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocus();
 		}
@@ -429,7 +432,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		public EmptySpace(){
 			super();
 			setPreferredSize(new Dimension(58,58));
-			setBorder(BorderFactory.createLineBorder(Color.white));
+			//setBorder(BorderFactory.createLineBorder(Color.white));
 			setIcon(freeSpaceIcon);
 		}
 
