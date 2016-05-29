@@ -2,15 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d4c448d-ba83-4c66-b574-44c86872f786" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/ships/targetShip.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/AddnewlevelPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/UndoPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/addshipPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/backPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/editorPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/exitPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/headlabel.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/homePirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/levelButtonPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/returnPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/savelevelPirate.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/design/selectlevelPirate.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/levels.txt" afterPath="$PROJECT_DIR$/levels.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameComponents/Game.java" afterPath="$PROJECT_DIR$/src/GameComponents/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameMenu/EditorWindow.java" afterPath="$PROJECT_DIR$/src/GameMenu/EditorWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameMenu/GameEditor.java" afterPath="$PROJECT_DIR$/src/GameMenu/GameEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameMenu/HomeWindow.java" afterPath="$PROJECT_DIR$/src/GameMenu/HomeWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameMenu/LevelsWindow.java" afterPath="$PROJECT_DIR$/src/GameMenu/LevelsWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameMenu/ModelClasses/PanelModel.java" afterPath="$PROJECT_DIR$/src/GameMenu/ModelClasses/PanelModel.java" />
     </list>
     <ignored path="UnblockMe.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -98,8 +102,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameComponents/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+            <state relative-caret-position="219">
+              <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -907,12 +911,12 @@
       <workItem from="1464446623144" duration="3602000" />
       <workItem from="1464450753260" duration="1089000" />
       <workItem from="1464451888171" duration="2648000" />
-      <workItem from="1464518969142" duration="6518000" />
+      <workItem from="1464518969142" duration="6761000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13857000" />
+    <option name="totallyTimeSpent" value="14100000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1383,8 +1387,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameComponents/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="54" column="31" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
+        <state relative-caret-position="219">
+          <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
           <folding />
         </state>
       </provider>
