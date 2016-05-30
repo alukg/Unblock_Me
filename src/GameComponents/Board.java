@@ -27,10 +27,15 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	private final int finishi = 3;
 	private final int finishj = 6;
 	private Stack<Object[]> lastMove;
-	private ImageIcon freeSpaceIcon;
+
+	private ImageIcon freeSpaceIcon = new ImageIcon("design//emptySpace.jpg");
+	private ImageIcon horizontal2shipIcon = new ImageIcon("design/ships/horizontal2ship.png");
+	private ImageIcon horizontal3shipIcon = new ImageIcon("design/ships/horizontal3ship.png");
+	private ImageIcon vertical2shipIcon = new ImageIcon("design/ships/vertical2ship.png");
+	private ImageIcon vertical3shipIcon = new ImageIcon("design/ships/vertical3ship.png");
+	private ImageIcon targetShipIcon = new ImageIcon("design/ships/targetShip.png");
 
 	public Board(Game game, Block[] allBlocks) {
-		freeSpaceIcon = new ImageIcon("design//emptySpace.jpg");
 		this.lastMove = new Stack<Object[]>();
 		//this.size = size;
 		this.game = game;
@@ -165,18 +170,18 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				gbc.fill = GridBagConstraints.HORIZONTAL;
 				if(((Block)(toAdd)).getMy_target()) {
 					toAdd.setPreferredSize(new Dimension(116,58));
-					toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
+					toAdd.setIcon(targetShipIcon);
 					//toAdd.setBorder(BorderFactory.createLineBorder(Color.green));
 				}
 				else
 				{
 					if(gbc.gridwidth == 3) {
 						toAdd.setPreferredSize(new Dimension(174, 58));
-						toAdd.setIcon(new ImageIcon("Design/ships/horizontal3ship.png"));
+						toAdd.setIcon(horizontal3shipIcon);
 					}
 					else {
 						toAdd.setPreferredSize(new Dimension(116, 58));
-						toAdd.setIcon(new ImageIcon("Design/ships/horizontal2ship.png"));
+						toAdd.setIcon(horizontal2shipIcon);
 					}
 				}
 			}
@@ -186,11 +191,11 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				gbc.fill = GridBagConstraints.VERTICAL;
 				if(gbc.gridheight == 3) {
 					toAdd.setPreferredSize(new Dimension(58, 174));
-					toAdd.setIcon(new ImageIcon("Design/ships/vertical3ship.png"));
+					toAdd.setIcon(vertical3shipIcon);
 				}
 				else {
 					toAdd.setPreferredSize(new Dimension(58, 116));
-					toAdd.setIcon(new ImageIcon("Design/ships/vertical2ship.png"));
+					toAdd.setIcon(vertical2shipIcon);
 				}
 			}
 			toAdd.addMouseListener(this);
@@ -267,6 +272,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 				System.out.println("There are no last moves");
 			}
 		}
+
 	public boolean MoveBlock(String dir)
 	{
 		boolean moveDone = false;
@@ -354,6 +360,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			System.out.println("Finish game");
 			this.game.Finish();
 		}
+		revalidate();
 		repaint();
 		return moveDone;
 		}

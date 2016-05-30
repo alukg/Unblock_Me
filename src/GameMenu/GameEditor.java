@@ -39,6 +39,22 @@ public class GameEditor extends PanelModel {
         menuPanel.add(saveLevel);
         menuPanel.add(createShip);
 
+        JLabel explenation = new JLabel("<html><center>Mark the wanted<br/>place on the board</center></html>");
+        explenation.setForeground(Color.WHITE);
+        explenation.setFont(new Font("Century Gothic",Font.BOLD,12));
+        explenation.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel explenation2 = new JLabel("<html><center>and than press<br/>\"Add ship\".</center></html>");
+        explenation2.setForeground(Color.WHITE);
+        explenation2.setFont(new Font("Century Gothic",Font.BOLD,12));
+        explenation2.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel explenation3 = new JLabel("<html><center>For delete, press<br/>on any ship</center></html>");
+        explenation3.setForeground(Color.WHITE);
+        explenation3.setFont(new Font("Century Gothic",Font.BOLD,12));
+        explenation3.setHorizontalAlignment(SwingConstants.CENTER);
+        menuPanel.add(explenation);
+        menuPanel.add(explenation2);
+        menuPanel.add(explenation3);
+
         mainPanel.setLayout(new GridBagLayout());
         mainPanel.setBackground(new Color(24,99,131));
         gbc = new GridBagConstraints();
@@ -146,6 +162,7 @@ public class GameEditor extends PanelModel {
                 }
             }
             freeSpaces.removeAllElements();
+            mainPanel.revalidate();
             mainPanel.repaint();
         }
     }
@@ -295,6 +312,7 @@ public class GameEditor extends PanelModel {
                 freeSpace.setPreferredSize(new Dimension(58,58));
                 mainPanel.add(freeSpace,gbc);
             }
+            mainPanel.revalidate();
             mainPanel.repaint();
         }
 

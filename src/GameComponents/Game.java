@@ -127,6 +127,7 @@ public class Game extends PanelModel implements ActionListener
 			this.board.undoFunction();
 		}
 	}
+
 	public void Finish()
 	{
 		System.out.println("stop timer");
@@ -136,15 +137,6 @@ public class Game extends PanelModel implements ActionListener
 		sec = 0;
 		//this.time.restart();
 		this.controller.gameFinished(currentTime,BestTime);
-		}
-
-
-	
-
-	
-
-	
-
-	
+	}
 	
 }
