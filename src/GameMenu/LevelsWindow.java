@@ -1,7 +1,7 @@
 package GameMenu;
 
 import GameComponents.Level;
-import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.JButtonWithIcon;
 import GameMenu.ModelClasses.PanelModel;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class LevelsWindow extends PanelModel {
 
     public LevelsWindow(Controller controller) {
         this.controller = controller;
-        JButton home = new JButtonWithBackground("design\\homePirate.jpg");
+        JButton home = new JButtonWithIcon("design\\homePirate.jpg");
         home.setActionCommand("Home");
         home.addActionListener(controller.new menuPress());
         menuPanel.add(home);
@@ -53,7 +53,7 @@ public class LevelsWindow extends PanelModel {
             levelsChoose.setLayout(new GridBagLayout());
             int i = 0;
             while(i<vector.size()){
-                JButton levelButton = new JButtonWithBackground("design/levelButtonPirate.jpg");
+                JButton levelButton = new JButtonWithIcon("design/levelButtonPirate.jpg");
                 levelButton.setPreferredSize(new Dimension(100,100));
                 levelButton.setHorizontalTextPosition(JButton.CENTER);
                 levelButton.setVerticalTextPosition(JButton.CENTER);

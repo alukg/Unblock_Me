@@ -1,12 +1,11 @@
 package GameComponents;
 import GameMenu.Controller;
-import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.JButtonWithIcon;
 import GameMenu.ModelClasses.PanelModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-import java.util.Stack;
 import javax.swing.*;
 import javax.swing.Timer;
 
@@ -24,8 +23,8 @@ public class Game extends PanelModel implements ActionListener
 	
 	public Game()
 	{
-		undo = new JButtonWithBackground("design\\UndoPirate.jpg");
-		JButton selectLevel = new JButtonWithBackground("design\\returnPirate.jpg");
+		undo = new JButtonWithIcon("design\\UndoPirate.jpg");
+		JButton selectLevel = new JButtonWithIcon("design\\returnPirate.jpg");
 		selectLevel.setActionCommand("Select level");
 		selectLevel.addActionListener(controller.new menuPress());
 		labelTimer = new JLabel("00:00",SwingConstants.CENTER);
@@ -46,8 +45,8 @@ public class Game extends PanelModel implements ActionListener
 	{
 		this.BestTime= BestTime;
 		this.controller = controller;
-		undo = new JButtonWithBackground("design\\UndoPirate.jpg");
-		JButton selectLevel = new JButtonWithBackground("design\\returnPirate.jpg");
+		undo = new JButtonWithIcon("design\\UndoPirate.jpg");
+		JButton selectLevel = new JButtonWithIcon("design\\returnPirate.jpg");
 		selectLevel.setActionCommand("Select level");
 		selectLevel.addActionListener(controller.new menuPress());
 		JLabel labelBestTime = new JLabel("Best time is : "+this.BestTime,SwingConstants.CENTER);

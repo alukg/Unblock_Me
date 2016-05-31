@@ -1,6 +1,6 @@
 package GameMenu;
 
-import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.JButtonWithIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ public class EditorWindow extends LevelsWindow {
 
     public EditorWindow(Controller controller) {
         super(controller);
-        JButton addLevel = new JButtonWithBackground("C:\\Users\\guyal\\workspace\\UnblockMe\\design\\addnewlevelPirate.jpg");
+        JButton addLevel = new JButtonWithIcon("C:\\Users\\guyal\\workspace\\UnblockMe\\design\\addnewlevelPirate.jpg");
         addLevel.setActionCommand("Add new level");
         addLevel.addActionListener(controller.new menuPress());
         JLabel explenation = new JLabel("<html><center>Press on level<br/>for delete</center></html>");

@@ -1,6 +1,6 @@
 package GameMenu;
 
-import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.JButtonWithIcon;
 import GameMenu.ModelClasses.PanelModel;
 
 import javax.sound.sampled.AudioInputStream;
@@ -20,15 +20,15 @@ public class HomeWindow extends PanelModel {
 
     public HomeWindow(Controller controller) {
         this.controller = controller;
-        JButton selectLevel = new JButtonWithBackground("design\\selectlevelPirate.jpg");
+        JButton selectLevel = new JButtonWithIcon("design\\selectlevelPirate.jpg");
         selectLevel.setActionCommand("Select level");
         selectLevel.addActionListener(controller.new menuPress());
-        JButton editor = new JButtonWithBackground("design\\editorPirate.jpg");
+        JButton editor = new JButtonWithIcon("design\\editorPirate.jpg");
         editor.setActionCommand("Editor");
         editor.addActionListener(controller.new menuPress());
-        JButton exit = new JButtonWithBackground("design\\exitPirate.jpg");
+        JButton exit = new JButtonWithIcon("design\\exitPirate.jpg");
         exit.addActionListener(e -> {controller.saveDB(); System.exit(0);});
-        music = new JButtonWithBackground("design\\musicOffPirate.jpg");
+        music = new JButtonWithIcon("design\\musicOffPirate.jpg");
         music.addActionListener(new MusicListener());
         menuPanel.add(selectLevel);
         menuPanel.add(editor);

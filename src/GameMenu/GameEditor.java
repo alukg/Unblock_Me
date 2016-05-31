@@ -2,7 +2,7 @@ package GameMenu;
 
 import GameComponents.Block;
 import GameComponents.Level;
-import GameMenu.ModelClasses.JButtonWithBackground;
+import GameMenu.ModelClasses.JButtonWithIcon;
 import GameMenu.ModelClasses.PanelModel;
 
 import javax.swing.*;
@@ -26,13 +26,13 @@ public class GameEditor extends PanelModel {
         ships = new Vector<>();
         freeSpaces = new Vector<>();
 
-        JButton returnButton = new JButtonWithBackground("design\\returnPirate.jpg");
+        JButton returnButton = new JButtonWithIcon("design\\returnPirate.jpg");
         returnButton.setActionCommand("Editor");
         returnButton.addActionListener(controller.new menuPress());
-        JButton saveLevel = new JButtonWithBackground("design\\savelevelPirate.jpg");
+        JButton saveLevel = new JButtonWithIcon("design\\savelevelPirate.jpg");
         saveLevel.setActionCommand("Save Level");
         saveLevel.addActionListener(new SaveLevelListener());
-        JButton createShip = new JButtonWithBackground("design\\addshipPirate.jpg");
+        JButton createShip = new JButtonWithIcon("design\\addshipPirate.jpg");
         createShip.addActionListener(new CreateShipListener());
 
         menuPanel.add(returnButton);
