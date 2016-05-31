@@ -12,12 +12,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Welcome screen class.
+ */
 public class HomeWindow extends PanelModel {
 
     private Controller controller;
-    private Clip clip;
+    private Clip clip; //the music controller.
     private JButton music;
 
+    /**
+     * Constructor.
+     * @param controller get the controller for adding the menu listener.
+     */
     public HomeWindow(Controller controller) {
         this.controller = controller;
         JButton selectLevel = new JButtonWithIcon("design\\selectlevelPirate.jpg");

@@ -8,8 +8,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.Stack;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -28,12 +30,14 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	private final int finishj = 6;
 	private Stack<Object[]> lastMove;
 
-	private ImageIcon freeSpaceIcon = new ImageIcon("design//emptySpace.jpg");
+	private ImageIcon freeSpaceIcon = new ImageIcon("design//emptySpaceTrans.png");
 	private ImageIcon horizontal2shipIcon = new ImageIcon("design/ships/horizontal2ship.png");
 	private ImageIcon horizontal3shipIcon = new ImageIcon("design/ships/horizontal3ship.png");
 	private ImageIcon vertical2shipIcon = new ImageIcon("design/ships/vertical2ship.png");
 	private ImageIcon vertical3shipIcon = new ImageIcon("design/ships/vertical3ship.png");
 	private ImageIcon targetShipIcon = new ImageIcon("design/ships/targetShip.png");
+
+	private Image boardBackground;
 
 	public Board(Game game, Block[] allBlocks) {
 		this.lastMove = new Stack<Object[]>();
@@ -51,6 +55,19 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		AddBlocks(this.allBlocks);
 		this.selected.setFocusable(true);
 		this.selected.requestFocus();
+
+		//Add background to the panel
+		File file = new File("design\\boardBackground.png");
+		try {
+			boardBackground = ImageIO.read(file);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(boardBackground, 0, 0, null); // Draw the background image.
 	}
 	
 	public Board(Board b)

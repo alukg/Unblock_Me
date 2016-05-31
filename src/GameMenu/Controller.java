@@ -214,22 +214,25 @@ public class Controller extends JFrame {
             Boolean target = (Boolean)level.blocks[i][4];
             blocks[i] = new Block(x,y,length,dir,target);
         }
-        gameWindow = new Game(controller,blocks,level.bestTime);
+        gameWindow = new Game(controller,blocks,level.bestTime); //create a new game.
         openLevel = levelSlot;
         getContentPane().add(gameWindow, "Game");
-        cards.show(getContentPane(), "Game");
+        cards.show(getContentPane(), "Game"); //show the game window.
     }
 
+    /**
+     * Action listener to remove a new game.
+     */
     public class removeLevelPress implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String[] options = { "Confirm", "Cancel" };
             JPanel panel = new JPanel();
             panel.add(new JLabel("Are you sure you want to delete this level?"), BorderLayout.CENTER);
-            int selected = JOptionPane.showOptionDialog(controller,panel,"Confirmation", JOptionPane.YES_NO_OPTION,
+            int selected = JOptionPane.showOptionDialog(controller,panel,"Confirmation", JOptionPane.YES_NO_OPTION, //show confirm dialog.
                     JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if(selected == JOptionPane.YES_OPTION){
-                levelsDB.removeElementAt(Integer.parseInt(e.getActionCommand()));
-                editorWindow.addLevelChoosePanel();
+            if(selected == JOptionPane.YES_OPTION){ //if want to remove.
+                levelsDB.removeElementAt(Integer.parseInt(e.getActionCommand())); //remove the level from the DB.
+                editorWindow.addLevelChoosePanel(); //show the levels again.
             }
         }
     }
