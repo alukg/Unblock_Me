@@ -43,34 +43,38 @@ public class HomeWindow extends PanelModel {
         menuPanel.add(music);
         mainPanel.setBackground(Color.BLACK);
         JLabel headLine = new JLabel();
-        headLine.setIcon(new ImageIcon("design\\headlabel.png"));
+        headLine.setIcon(new ImageIcon("design\\headlabel.png")); //add background to the main panel.
         mainPanel.add(headLine);
 
         //Add music
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("PiratesOfTheCaribbean.wav").getAbsoluteFile());
             clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+            clip.open(audioInputStream); //open the sound file.
         } catch(Exception ex) {
             System.out.println("Error with playing sound.");
             ex.printStackTrace();
         }
     }
 
+
+    /**
+     * Listener for the music player.
+     */
     public class MusicListener implements ActionListener{
 
-        private boolean musicOn = false;
+        private boolean musicOn = false; //decide if the music is on or off.
 
         @Override
         public void actionPerformed(ActionEvent e) {
             if(musicOn == true){
                 musicOn = false;
-                music.setIcon(new ImageIcon("design\\musicOffPirate.jpg"));
+                music.setIcon(new ImageIcon("design\\musicOffPirate.jpg")); //change the music icon to on.
                 clip.stop();
             }
             else{
                 musicOn = true;
-                music.setIcon(new ImageIcon("design\\musicOnPirate.jpg"));
+                music.setIcon(new ImageIcon("design\\musicOnPirate.jpg")); //change the music icon to off.
                 clip.start();
             }
         }
