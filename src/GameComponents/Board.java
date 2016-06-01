@@ -12,14 +12,14 @@ import java.io.File;
 import java.util.Stack;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.StrokeBorder;
-
+/**
+ * The class that represents the board in the game.
+ */
 public class Board extends JPanel implements MouseListener , KeyListener
 {
+	//Variables
 	private Game game;
 	private Block selected;
 	private Block[] allBlocks;
@@ -39,9 +39,10 @@ public class Board extends JPanel implements MouseListener , KeyListener
 
 	private Image boardBackground;
 
-	public Board(Game game, Block[] allBlocks) {
+	//Constructors
+	public Board(Game game, Block[] allBlocks)
+	{
 		this.lastMove = new Stack<Object[]>();
-		//this.size = size;
 		this.game = game;
 		this.setLayout(new GridBagLayout());
 		this.setSize(350, 350);
@@ -65,10 +66,7 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		}
 	}
 
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(boardBackground, 0, 0, null); // Draw the background image.
-	}
+
 	
 	public Board(Board b)
 	{
@@ -86,7 +84,41 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		return finishi;
 	}
 
-	
+	public int getBoardSize() {
+		return size;
+	}
+	public Block getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Block selected) {
+		this.selected = selected;
+	}
+
+	public Block[] getAllBlocks()
+	{
+		Block[] ans = new Block[this.allBlocks.length];
+		for (int i = 0; i < ans.length; i++)
+		{
+			ans[i] = new Block(this.allBlocks[i]);
+		}
+		return ans;
+	}
+
+	public void setAllBlocks(Block[] allBlocks) {
+		this.allBlocks = allBlocks;
+	}
+
+	public int[][] getArrBoard() {
+		return arrBoard;
+	}
+
+	public void setArrBoard(int[][] arrBoard)
+	{
+		this.arrBoard = arrBoard;
+	}
+
+
 	public Stack<Object[]> getLastMove() 
 	{
 		return lastMove;
@@ -95,12 +127,17 @@ public class Board extends JPanel implements MouseListener , KeyListener
 	{
 		this.lastMove = lastMove;
 	}
-	
-	
-	
-	//-2 ���� �����
-	//-1 ����
-	//�� ���� ��� ���� ���� �"� ���� ������ �� ���� ����� �����
+
+
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		g.drawImage(boardBackground, 0, 0, null); // Draw the background image.
+	}
+
+	/**
+	 * The function sets the arrBoard with -2 for the border, - 1 for free places and numbers >-1 for blocks.
+	 ***/
 	private void CreateFrame(int size , Block[] allBlocks)
 	{
 		this.arrBoard = new int[size+2][size+2];
@@ -132,7 +169,8 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			}
 		}
 	}
-	private void PrintArray(int[][] arr)
+
+	/*private void PrintArray(int[][] arr)
 	{
 		for(int i = 0; i < arr.length; i++)
 		{
@@ -142,7 +180,11 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			}
 			System.out.println();
 		}
-	}
+	}*/
+
+	/**
+	 * The function add all the blocks and free spaces in the board.
+	 ***/
 	private void AddBlocks(Block[] allBlocks)
 	{
 		this.labels = new EmptySpace[this.size][this.size];
@@ -221,54 +263,13 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			//this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 		}
 	}
-	public void ChangeColor()
+
+
+	/**
+	 * The function for the undo button.
+	 ***/
+	public void undoFunction()
 	{
-		if(this.selected.getMy_target())
-		{
-			this.selected.setBackground(Color.red);
-		}
-		else
-		{
-			this.selected.setBackground(Color.gray);
-		}
-	}
-		public int getBoardSize() {
-			return size;
-		}
-		public Block getSelected() {
-			return selected;
-		}
-
-		public void setSelected(Block selected) {
-			this.selected = selected;
-		}
-
-		public Block[] getAllBlocks() 
-		{
-			Block[] ans = new Block[this.allBlocks.length];
-			for (int i = 0; i < ans.length; i++) 
-			{
-				ans[i] = new Block(this.allBlocks[i]);
-			}
-			return ans;
-		}
-
-		public void setAllBlocks(Block[] allBlocks) {
-			this.allBlocks = allBlocks;
-		}
-
-		public int[][] getArrBoard() {
-			return arrBoard;
-		}
-
-		public void setArrBoard(int[][] arrBoard)
-		{
-			this.arrBoard = arrBoard;
-		}
-		
-
-		public void undoFunction()
-		{
 			if(!(this.lastMove.isEmpty()))
 			{
 			Object[] tmp = this.lastMove.pop();
@@ -286,10 +287,18 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			}
 			else
 			{
-				System.out.println("There are no last moves");
+				/*JPanel panel = new JPanel();
+				String dialogString = "<html><center>There are no undo moves</center></html>";
+				panel.add(new JLabel("dialogString"));
+				JOptionPane.showOptionDialog(this,panel,"", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null);*/
+				//System.out.println("There are no last moves");
 			}
 		}
-
+	/**
+	 * The function checks if the movement is legal and operate the movement .
+	 * @parm  dir saves which direction the selected block should move.
+	 * @return whether the movement was done or not
+	 ***/
 	public boolean MoveBlock(String dir)
 	{
 		boolean moveDone = false;
@@ -374,14 +383,17 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		}
 		if(this.arrBoard[finishi][finishj] > -1 && this.allBlocks[this.arrBoard[finishi][finishj]].getMy_target())
 		{
-			System.out.println("Finish game");
+			//System.out.println("Finish game");
 			this.game.Finish();
 		}
 		revalidate();
 		repaint();
 		return moveDone;
 		}
-		
+	/**
+	 * The function change the selected block if the source is a block.
+	 * @parm  e saves the mouse event details.
+	 ***/
 	public void mouseClicked(MouseEvent e) 
 	{
 		if(e.getSource() instanceof Block)
@@ -394,26 +406,19 @@ public class Board extends JPanel implements MouseListener , KeyListener
 		}
 		
 		}
-	public void mouseEntered(MouseEvent e) {
-		}
 	@Override
-	public void mouseExited(MouseEvent e) {
-
-
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 	@Override
-	public void mousePressed(MouseEvent e) 
-	{
-
-
-	}
+	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
 
-	}
-	
+	/**
+	 * The function move the selected block by the key event if the keyCode is up/down/right/left and saves the move in the stack of all last moves.
+	 * @parm  e saves the key event details.
+	 ***/
 	public void keyPressed(KeyEvent e) 
 	{
 		 int keyCode = e.getKeyCode();
@@ -444,19 +449,18 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocus();
 	}
-	public void keyReleased(KeyEvent e) {
-		
-	}
-	public void keyTyped(KeyEvent e) {
-		
-	}
 
+	public void keyReleased(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {	}
+
+	/**
+	 * The private class that represents an empty space label.
+	 */
 	private class EmptySpace extends JLabel {
 
 		public EmptySpace(){
 			super();
 			setPreferredSize(new Dimension(58,58));
-			//setBorder(BorderFactory.createLineBorder(Color.white));
 			setIcon(freeSpaceIcon);
 		}
 
