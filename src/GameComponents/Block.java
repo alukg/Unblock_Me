@@ -7,9 +7,13 @@ import java.awt.peer.KeyboardFocusManagerPeer;
 
 import javax.swing.JLabel;
 
-
+/**
+ * The class that represents a block in the game.
+ *
+ */
 public class Block extends JLabel 
 {
+	//Variables
 	private int my_x;
 	private int my_y;
 	private int my_length;
@@ -43,7 +47,7 @@ public class Block extends JLabel
 	
 	
 	
-	
+	//Getters and Setters
 	public int getMy_x() {
 		return my_x;
 	}
@@ -80,18 +84,31 @@ public class Block extends JLabel
 	public void setMy_Selected(Boolean my_Selected) {
 		this.my_Selected = my_Selected;
 	}
+
+	/**
+	 * The function updates the indexes of the block after a movement to the right.
+	 **/
 	public void moveRight()
 	{
 		this.my_x = this.my_x + 1;
 	}
+	/**
+	 * The function updates the indexes of the block after a movement to the left.
+	 ***/
 	public void moveLeft()
 	{
 		this.my_x = this.my_x - 1;
 	}
+	/**
+	 * The function updates the indexes of the block after up movement.
+	 ***/
 	public void moveUp()
 	{
 		this.my_y = this.my_y - 1;
 	}
+	/**
+	 * The function updates the indexes of the block after down movement.
+	 ***/
 	public void moveDown()
 	{
 		this.my_y = this.my_y + 1;

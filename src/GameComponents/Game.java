@@ -10,9 +10,12 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 import java.awt.*;
-
+/**
+ * The class that represents the a game.
+ */
 public class Game extends PanelModel implements ActionListener
 {
+	//Variables
 	private Board board;
 	Controller controller;
 	private Timer time;
@@ -21,10 +24,12 @@ public class Game extends PanelModel implements ActionListener
 	private JLabel labelTimer;
 	private JButton undo;
 	JButton selectLevel;
-	
-	public Game()
+
+
+	//Constructors
+	/*public Game()
 	{
-		/*undo = new JButtonWithIcon("design\\UndoPirate.jpg");
+		undo = new JButtonWithIcon("design\\UndoPirate.jpg");
 		selectLevel = new JButtonWithIcon("design\\returnPirate.jpg");
 		selectLevel.setActionCommand("Select level");
 		selectLevel.addActionListener(this);
@@ -38,9 +43,8 @@ public class Game extends PanelModel implements ActionListener
 		menuPanel.add(undo);
 		menuPanel.add(selectLevel);
 
-		mainPanel.setBackground(new Color(24,99,131));*/
-	}
-
+		mainPanel.setBackground(new Color(24,99,131));
+	}*/
 	public Game(Controller controller, Block[] b, String BestTime)
 	{
 		this.BestTime= BestTime;
@@ -69,7 +73,7 @@ public class Game extends PanelModel implements ActionListener
 
 
 	}
-	
+	//Getters and Setters
 	public Board getBoard() {
 		return board;
 	}
@@ -89,31 +93,10 @@ public class Game extends PanelModel implements ActionListener
 		JLabel labelbestTime = new JLabel("Best time is : "+this.BestTime);
 		menuPanel.add(labelbestTime);
 	}
-
-	/*private class starChrono implements ActionListener
-	{
-		
-		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
-			if(e.getSource() == time)
-			{
-				if (sec < 59)
-				{
-					sec++;
-					String sec2 = (sec < 10 ? "0" : "") + sec;
-					labelTimer.setText(min + ":" + sec2);
-				} else
-				{
-					min++;
-					sec = 0;
-					String min2 = (min < 10 ? "0" : "") + min;
-					labelTimer.setText(min2 + ":00");
-				}
-			}
-		}
-	}*/
-
+	/**
+	 * The function operate the timer and stop it and operate undo function of the board if the undo button was pressed.
+	 * @parm  e saves the action event details.
+	 ***/
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == time)
@@ -147,9 +130,12 @@ public class Game extends PanelModel implements ActionListener
 		}
 	}
 
+
+	/**
+	 * The function stops the timer of the board and runs the controller game finished function.
+	 **/
 	public void Finish()
 	{
-		System.out.println("stop timer");
 		this.time.stop();
 		String currentTime = this.labelTimer.getText();
 		min = 0;
