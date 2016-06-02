@@ -273,7 +273,9 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			if(!(this.lastMove.isEmpty()))
 			{
 			Object[] tmp = this.lastMove.pop();
+				this.selected.setBorder(null);
 			setSelected((Block)tmp[0]);
+				this.selected.setBorder(BorderFactory.createLineBorder(Color.green));
 			String dirToGo = (String)tmp[1];
 			if(dirToGo.equals("up"))
 				dirToGo = "down";
