@@ -6,6 +6,7 @@ import GameMenu.ModelClasses.JButtonWithIcon;
 import GameMenu.ModelClasses.JPanelWithBackground;
 import GameMenu.ModelClasses.PanelModel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.Vector;
 
 public class GameEditor extends PanelModel {
@@ -62,7 +64,7 @@ public class GameEditor extends PanelModel {
         menuPanel.add(explenation2);
         menuPanel.add(explenation3);
 
-        mainPanel = new JPanelWithBackground("design\\boardBackground.png");
+        mainPanel.setBackground(new Color(24,99,131));
         mainPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
@@ -234,8 +236,8 @@ public class GameEditor extends PanelModel {
         public freeSpaceButton(Point place) {
             super();
             this.place = place;
+            setBackground(new Color(24,99,131));
             setPreferredSize(new Dimension(58,58));
-            setIcon(freeSpaceIcon);
             setBorder(null);
             addMouseListener(this);
             setCursor(new Cursor(Cursor.HAND_CURSOR));
