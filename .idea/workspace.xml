@@ -7,20 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d4c448d-ba83-4c66-b574-44c86872f786" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UnblockMe.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/Block.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BlockSelected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/BlockTarget.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/FreeSpace.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/Block.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/Board.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/Game$starChrono.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/Game.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/MainWindow$JPanelWithBackground.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/MainWindow.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/GameMenu/Test.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/levels.txt" afterPath="$PROJECT_DIR$/levels.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hw3uml.pdf" />
     </list>
     <ignored path="UnblockMe.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,8 +33,8 @@
       <file leaf-file-name="GameEditor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameMenu/GameEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="59" column="48" selection-start-line="59" selection-start-column="48" selection-end-line="59" selection-end-column="48" />
+            <state relative-caret-position="476">
+              <caret line="86" column="17" selection-start-line="86" selection-start-column="17" selection-end-line="86" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -855,12 +842,12 @@
       <workItem from="1464784732439" duration="622000" />
       <workItem from="1464879272922" duration="550000" />
       <workItem from="1464880369354" duration="1722000" />
-      <workItem from="1464882131788" duration="149000" />
+      <workItem from="1464882131788" duration="765000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17761000" />
+    <option name="totallyTimeSpent" value="18377000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1261,8 +1248,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameMenu/GameEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="59" column="48" selection-start-line="59" selection-start-column="48" selection-end-line="59" selection-end-column="48" />
+        <state relative-caret-position="476">
+          <caret line="86" column="17" selection-start-line="86" selection-start-column="17" selection-end-line="86" selection-end-column="17" />
           <folding />
         </state>
       </provider>
