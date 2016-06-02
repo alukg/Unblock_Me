@@ -286,6 +286,8 @@ public class Board extends JPanel implements MouseListener , KeyListener
 			else if(dirToGo.equals("right"))
 				dirToGo = "left";
 			MoveBlock(dirToGo);
+				this.selected.setFocusable(true);
+				this.selected.requestFocus();
 			}
 			else
 			{
