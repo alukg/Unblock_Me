@@ -16,7 +16,7 @@ public class EditorWindow extends LevelsWindow {
      */
     public EditorWindow(Controller controller) {
         super(controller);
-        JButton addLevel = new JButtonWithIcon("C:\\Users\\guyal\\workspace\\UnblockMe\\design\\addnewlevelPirate.jpg"); //add level button.
+        JButton addLevel = new JButtonWithIcon("design\\addnewlevelPirate.jpg"); //add level button.
         addLevel.setActionCommand("Add new level");
         addLevel.addActionListener(controller.new menuPress());
         JLabel explanation = new JLabel("<html><center>Press on level<br/>for delete</center></html>"); //explanation label.
